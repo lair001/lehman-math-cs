@@ -1,0 +1,610 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\newcommand{\surj}{\text{ surj }}
+\newcommand{\inj}{\text{ inj }}
+\newcommand{\bij}{\text{ bij }}
+
+\newenvironment{subproof}[1][\proofname]{%
+	\renewcommand{\qedsymbol}{$\blacksquare$}%
+	\begin{proof}[#1]%
+	}{%
+	\end{proof}%
+}
+
+\title{Chapter 4 Problem Solutions}
+\author{Samuel Lair}
+\date{September 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+
+\subsection{(a)}
+\[
+	pow(\{1, 2\}) = \{\emptyset, \{1\}, \{2\}, \{1, 2\}\}
+\]
+
+\subsection{(b)}
+\[
+	pow(
+	\{\emptyset, \{\emptyset\}\}) = \{\emptyset, \{\emptyset\}, \{\{\emptyset\}\}, \{\emptyset, \{\emptyset\}\}\}
+\]
+
+\subsection{(c)}
+$2^8 = 256$
+
+\pagebreak
+
+\section{Problem 2}
+
+\subsection{(a)}
+\[
+	(x = \emptyset) \Coloneqq \forall z.(z \notin x)
+\]
+
+\subsection{(b)}
+\[
+	(x = \{y, z\}) \Coloneqq \forall a.(a \in x \iff a \in \{y, z\})
+\]
+
+\subsection{(c)}
+\[
+	(x \subseteq y) \Coloneqq \forall z.(z \in x \implies z \in y)
+\]
+
+
+\subsection{(d)}
+\[
+	(x = y \cup z) \Coloneqq \forall a.(a \in x \iff a \in y \lor a \in z)
+\]
+
+\subsection{(e)}
+\[
+	(x = y - z) \Coloneqq \forall a.(a \in x \iff a \in y \land a \notin z)
+\]
+
+\subsection{(f)}
+\[
+	(x = \text{pow}(y)) \Coloneqq \forall z.(z \in x \iff z \subseteq y)
+\]
+
+\subsection{(g)}
+\[
+	(x = \bigcup_{z \in y} z) \Coloneqq \forall a.(a \in x \iff \exists z \in y.(a \in z))
+\]
+
+\pagebreak
+
+\section{Problem 3}
+\subsection{(a)}
+Prove that
+\begin{equation}\label{p3aclaim}
+	(P \land \neg Q) \lor (P \land Q) \equiv P
+\end{equation}
+\begin{proof}
+	The proof is by truth table.
+
+	\[
+		\begin{array}{|c|c|c c c|}
+			P          & Q & (P \land \neg Q) & \lor       & (P \land Q) \\
+			\hline
+			\mathbf{T} & T & F                & \mathbf{T} & T           \\
+			\mathbf{T} & F & T                & \mathbf{T} & F           \\
+			\mathbf{F} & T & F                & \mathbf{F} & F           \\
+			\mathbf{F} & F & F                & \mathbf{F} & F
+		\end{array}
+	\]
+
+	The truth table for $(P \land \neg Q) \lor (P \land Q)$ is identical to the truth table for $P$. Hence, \eqref{p3aclaim} must be true.
+\end{proof}
+
+\subsection{(b)}
+Prove that
+\begin{equation}\label{p3bclaim}
+	A = (A - B) \cup (A \cap B)
+\end{equation}
+
+\begin{proof}
+	\begin{align*}
+		 & x \in (A - B) \cup (A \cap B)                           & \iff                                                                                         \\
+		 & x \in (A - B) \lor x \in (A \cap B)                     & \iff                                                                                         \\
+		 & (x \in A \land x \notin B) \lor (x \in A \land x \in B) & \iff                                                                                         \\
+		 & x \in A                                                 & \text{ (apply } \eqref{p3aclaim} \text{ taking } P \Coloneqq & x \in A, Q \Coloneqq x \in B) \\
+	\end{align*}
+
+	Hence, \eqref{p3bclaim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 4}
+Prove that
+\begin{equation}\label{p4claim}
+	A \cup (B \cap C) = (A \cup B) \cap (A \cup C)
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		 & x \in A \cup (B \cap C)                             &                     & \iff \\
+		 & x \in A \lor x \in (B \cap C)                       &                     & \iff \\
+		 & x \in A \lor (x \in B \land x \in C)                &                     & \iff \\
+		 & (x \in A \lor x \in B) \land (x \in A \lor x \in C) & (\text{apply 3.10}) & \iff \\
+		 & x \in (A \cup B) \land x \in (A \cup C)             &                     & \iff \\
+		 & x \in (A \cup B) \cap (A \cup C)
+	\end{align*}
+	Hence, \eqref{p4claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 5}
+Prove
+\begin{equation}\label{p5claim}
+	\overline{A \cap B} = \overline{A} \cup \overline{B}
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		x \in \overline{A \cap B}                  &                                           & \iff \\
+		x \notin A \cap B                          &                                           & \iff \\
+		\neg (x \in A \land x \in B)               &                                           & \iff \\
+		x \notin A \lor x \notin B                 & \; (\text{apply De Morgan's Law for AND}) & \iff \\
+		x \in \overline{A} \lor x \in \overline{B} &                                           & \iff \\
+		x \in \overline{A} \cup \overline{B}
+	\end{align*}
+	Hence, \eqref{p5claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 6}
+\subsection{(a)}
+Prove that
+\begin{equation}\label{p6aclaim}
+	\text{pow}(A \cap B) = \text{pow}(A) \cap \text{pow}(B)
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		x \in \text{pow}(A \cap B)                    & \iff \\
+		x \subseteq A \cap B                          & \iff \\
+		x \subseteq A \land x \subseteq B             & \iff \\
+		x \in \text{pow}(A) \land x \in \text{pow}(B) & \iff \\
+		x \in \text{pow}(A) \cap \text{pow}(B)
+	\end{align*}
+	Hence, \eqref{p6aclaim} must be true.
+\end{proof}
+
+\subsection{(b.1)}
+Prove that
+\begin{equation}\label{p6b1claim}
+	(\text{pow}(A) \cup \text{pow}(B)) \subseteq \text{pow}(A \cup B)
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		x \in \text{pow}(A) \cup \text{pow}(B)       & \implies \\
+		x \in \text{pow}(A) \lor x \in \text{pow}(B) & \implies \\
+		x \subseteq A \lor x \subseteq B             & \implies \\
+		x \subseteq A \cup B                         & \implies \\
+		x \in \text{pow}(A \cup B)
+	\end{align*}
+	Hence, \eqref{p6b1claim} must be true.
+\end{proof}
+
+\subsection{(b.2)}
+Prove that
+\begin{equation}\label{p6b2claim}
+	A \subseteq B \lor B \subseteq A \implies \text{pow}(A \cup B) \subseteq (\text{pow}(A) \cup \text{pow}(B))
+\end{equation}
+\begin{proof}
+	The proof is by case analysis. Consider the cases:
+	\begin{enumerate}
+		\item $A \subseteq B$
+		\item $B \subseteq A$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	\begin{align*}
+		A \subseteq B & \implies \\
+		A \cup B = B  & \implies \\
+		\text{pow}(A \cup B) = \text{pow}(B) \subseteq (\text{pow}(A) \cup \text{pow}(B))
+	\end{align*}
+	Therefore, the conclusion side of \eqref{p6b2claim} holds in this case.
+
+	\text{Case 2:}
+	\begin{align*}
+		B \subseteq A & \implies \\
+		A \cup B = A  & \implies \\
+		\text{pow}(A \cup B) = \text{pow}(A) \subseteq (\text{pow}(A) \cup \text{pow}(B))
+	\end{align*}
+	Therefore, the conclusion of \eqref{p6b2claim} holds in this case.
+
+	The conclusion of \eqref{p6b2claim} holds in Cases 1 and 2. Hence, \eqref{p6b2claim} must be true.
+\end{proof}
+
+\subsection{(b.3)}
+Prove that
+\begin{equation}\label{p6b3claim}
+	\text{pow}(A \cup B) \subseteq (\text{pow}(A) \cup \text{pow}(B)) \implies A \subseteq B \lor B \subseteq A
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		A \cup B \in \text{pow}(A \cup B)                          &                                                    & \implies \\
+		A \cup B \in (\text{pow}(A) \cup \text{pow}(B))            & \; (\text{apply hypothesis of } \eqref{p6b3claim}) & \implies \\
+		A \cup B \in \text{pow}(A) \lor A \cup B \in \text{pow}(B) &                                                    & \implies \\
+		A \cup B \subseteq A \lor A \cup B \subseteq B             &                                                    & \implies \\
+		B \subseteq A \lor A \subseteq B
+	\end{align*}
+	Hence, \eqref{p6b3claim} must be true.
+\end{proof}
+
+
+\subsection{(b.4)}
+Prove that
+\begin{equation}\label{p6b4claim}
+	(\text{pow}(A) \cup \text{pow}(B)) = \text{pow}(A \cup B) \iff A \subseteq B \lor B \subseteq A
+\end{equation}
+
+
+\begin{proof}
+	We've proved that \eqref{p6b1claim}, \eqref{p6b2claim}, and \eqref{p6b3claim} are all true. Hence, \eqref{p6b4claim} must be true as well.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 7}
+The second player still has a winning strategy when $A$ has four elements since the second player can always choose the complement of whatever subset the first player chooses on his/her first turn. Consider the following cases:
+\begin{enumerate}
+	\item Player 1 chooses a subset containing 1 element of $A$ on his/her first turn.
+	\item Player 1 chooses a subset containing 2 elements of $A$ on his/her first turn.
+	\item Player 1 chooses a subset containing 3 elements of $A$ on his/her first turn.
+\end{enumerate}
+
+\textbf{Case 1:}
+Player 2 chooses the subset containing the remaining 3 elements of $A$ on his/her first turn. Player 1 has no legal moves on his/her second turn so Player 2 wins.
+
+\textbf{Case 2:}
+Player 2 chooses the subset containing the remaining 2 elements of $A$ on his/her first turn. Player 1 has no legal moves on his/her second turn so Player 2 wins.
+
+\textbf{Case 3:}
+Player 2 chooses the subset containing the remaining element of $A$ on his/her first turn. Player 1 has no legal moves on his/her second turn so Player 2 wins.
+
+\pagebreak
+
+\section{Problem 8}
+Prove that
+\begin{equation}\label{p8claim}
+	A \cup B \cup C = (A - B) \cup (B - C) \cup (C - A) \cup (A \cap B \cap C)
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		x \in A \cup B \cup C                                                                                                                 & \iff \\
+		x \in A \lor x \in B \lor x \in C                                                                                                     & \iff \\
+		(x \in A \land x \notin B) \lor x \in B \lor x \in C                                                                                  & \iff \\
+		(x \in A \land x \notin B) \lor (x \in B \land x \notin C) \lor x \in C                                                               & \iff \\
+		(x \in A \land x \notin B) \lor (x \in B \land x \notin C) \lor (x \in C \land x \notin A) \lor (x \in A \land x \in B \land x \in C) & \iff \\
+		x \in (A - B) \cup (B - C) \cup (C - A) \cup (A \cap B \cap C)                                                                        &
+	\end{align*}
+	Hence, \eqref{p8claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 9}
+Prove that
+\begin{equation}\label{p9claim}
+	A \cup \bigcap_{i=1}^n B_i = \bigcap_{i=1}^n (A \cup B_i)
+\end{equation}
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p9claim}. I.e. $C = \Set{n \in \mathbb{Z^+} | \exists (A,B_1,...,B_n).(\text{\eqref{p9claim} is false}) }$. We will prove by contradiction that $C$ is empty.
+
+	Suppose $C$ is not empty. By the WOP, $C$ has a least element $m$. \eqref{p9claim} is trivially true for $n = 1$. \eqref{p9claim} is also true for $n = 2$ due to \eqref{p4claim} (see the solution to Problem 9 for a proof). Therefore, $m > 2$ and $(m - 1) \in \mathbb{Z^+}$.
+
+	Since $m$ is the least element of $C$, \eqref{p9claim} holds for $m - 1$. It follows that:
+	\begin{align*}
+		 & \bigcap_{i=1}^m (A \cup B_i)                         &                                                                                                                    & = \\
+		 & \bigcap_{i=1}^{m - 1} (A \cup B_i) \cap (A \cup B_m) &                                                                                                                    & = \\
+		 & A \cup \bigcap_{i=1}^{m - 1} B_i \cap (A \cup B_m)   & (\text{apply } \eqref{p9claim} \text{ for } m - 1)                                                                 & = \\
+		 & A \cup (\bigcap_{i=1}^{m - 1} B_i \cap B_m)          & (\text{apply } \eqref{p4claim} \text{ taking } B \Coloneqq \bigcap_{i=1}^{m - 1} B_i \text{ and } C \Coloneqq B_m) & = \\
+		 & A \cup \bigcap_{i=1}^m B_i
+	\end{align*}
+
+	We've reached a contradiction where \eqref{p9claim} holds for $m$. Hence, $C$ is empty and \eqref{p9claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 10}
+First, construct a corresponding propositional equivalence by doing the following:
+\begin{enumerate}
+	\item Replace $\cup$ with OR
+	\item Replace $\cap$ with AND
+	\item Replace $-$ with AND NOT
+	\item Replace complement with NOT
+	\item Replace $=$ with IFF
+\end{enumerate}
+Next, construct a truth table for the corresponding propositional equivalence. If it evaluates to True for all rows of its truth table, then it is valid and the original set expression equality is proven to be true. Otherwise, we can construct counterexamples to the original set expression equality from the truth table rows where the corresponding propositional equivalence evaluates to False:
+\begin{enumerate}
+	\item For propositional variables that are True, the corresponding set variables should equal $\{1\}$.
+	\item For propositional variables that are False, the corresponding set variables should equal $\emptyset$.
+\end{enumerate}
+
+\pagebreak
+
+\section{Problem 14}
+Prove that
+\begin{equation}\label{p14claim}
+	((A \times B) \cap (C \times D)) = \emptyset \implies ((A \cap C) = \emptyset) \lor ((B \cap D) = \emptyset)
+\end{equation}
+\begin{proof}
+	The proof is by contraction. Suppose that the Cartesian products $A \times C$ and $C \times D$ are disjoint but $A$ and $C$ aren't disjoint and $B$ and $D$ aren't disjoint. Then $\exists x \in A \cap C$ and $\exists y \in B \cap D$. Therefore, $(x, y) \in ((A \times B) \cap (C \times D))$ since $x \in A$ and $x \in C$ and $y \in B$ and $y \in D$. This is a contradiction since $A \times C$ and $C \times D$ are disjoint. Hence, \eqref{p14claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 15}
+\subsection{(a)}
+Consider
+\begin{align*}
+	A & = {1}                         \\
+	B & = {2}                         \\
+	C & = {3}                         \\
+	D & = {4}                         \\
+	L & = \{(1,3),(1,4),(2,3),(2,4)\} \\
+	R & = \{(1,3),(2,4)\}             \\
+	L & \ne R
+\end{align*}
+The key issue is that $L$ allows pairings between elements of $A$ and $D$ and between elements of $B$ and $C$ while R doesn't.
+
+\subsection{(b)}
+The "bogus" proof goes wrong with the step
+\begin{equation}\label{p15bstep}
+	\text{iff either } x \in A \text{ or } b \in B \text{, and either } y \in C \text{ or } y \in D
+\end{equation}
+By using "iff", this step ignores the requirement of the previous step that elements of $A$ must be paired with elements of $C$ and that elements of $B$ must be paired with elements of $D$.
+
+\subsection{(c)}
+We can fix the proof by replacing the "iff" of \eqref{p15bstep} with "implies" and concluding that $R \subseteq L$.
+
+\pagebreak
+
+\section{Problem 16}
+\[
+	\begin{array}{l|l l}
+		R \text{ is}        & \text{iff } & R^{-1} \text{ is}   \\
+		\hline
+		\text{total}        &             & \text{a surjection} \\
+		\text{a function}   &             & \text{an injection} \\
+		\text{a surjection} &             & \text{total}        \\
+		\text{an injection} &             & \text{a function}   \\
+		\text{a bijection}  &             & \text{a bijection}
+	\end{array}
+\]
+\pagebreak
+
+\section{Problem 17}
+\[
+	x \rightarrow e^x
+\]
+
+\pagebreak
+
+\section{Problem 18}
+\subsection{(a)}
+The surjective property is determined by graph($R$) and $B$ alone.
+\subsection{(b)}
+The injective property is determined by graph($R$) alone.
+\subsection{(c)}
+The total property is determined by graph($R$) and $A$ alone.
+\subsection{(d)}
+The function property is determined by graph($R$) alone.
+\subsection{(e)}
+The bijection property is determined by all three parts of $R$.
+
+\pagebreak
+
+\section{Problem 19}
+\subsection{(a)}
+a bijection
+\subsection{(b)}
+a bijection
+\subsection{(c)}
+neither an injection nor a surjection
+\subsection{(d)}
+a bijection
+\subsection{(e)}
+neither an injection nor a surjection
+\subsection{(f)}
+a surjection but not a bijection
+\subsection{(g)}
+an injection but not a bijection
+
+\pagebreak
+
+\section{Problem 21}
+Let
+\begin{align*}
+	A    & \Coloneqq \mathbb{Z} \\
+	R(n) & \Coloneqq 2 \cdot n
+\end{align*}
+
+\pagebreak
+
+\section{Problem 22}
+\subsection{(a)}
+Prove that
+\begin{equation}\label{p22aclaim}
+	A \surj B \land B \surj C \implies A \surj C
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		A \surj B \implies \exists \text{ a surjective function } f : A \rightarrow B \\
+		B \surj C \implies \exists \text{ a surjective function } g : B \rightarrow C
+	\end{align*}
+	Since g is a surjective function, $\forall c \in C \; \exists b \in B.g(b) = c$. Since f is a surjective function, $\forall b \in B \; \exists a \in A.f(a) = b$. Therefore, $\forall c \in C \; \exists a \in A.g(f(a)) = c$. In other words, $g \circ f : A \rightarrow C$ is a surjective function. Hence, \eqref{p22aclaim} must be true.
+\end{proof}
+
+\subsection{(b)}
+Prove that
+\begin{equation}\label{p22bclaim}
+	A \surj B \iff B \inj A
+\end{equation}
+\begin{proof}
+	We will proceed by proving the following lemmas:
+	\begin{align}
+		\label{p22blemma1} A \surj B \implies B \inj A \\
+		\label{p22blemma2} B \inj A \implies A \surj B
+	\end{align}
+	\begin{subproof}[Proof of \eqref{p22blemma1}]
+		The proof is by contradiction. Suppose $A \surj B$ is true but $B \inj A$ is false.
+		Then $\exists \text{ a surjective function } f : A \rightarrow B$.
+
+		Suppose that $f^{-1} B \rightarrow A$ isn't total. Then $\exists b \in B$ such that no arrows of $f^{-1}$ originate from $b$. However, this would imply that no arrows of $f$ terminate at $b$.  Therefore, we've reached a contradiction where $f$ isn't surjective. Hence, $f^{-1}$ must be total.
+
+		Suppose that $f^{-1} B \rightarrow A$ isn't injective. Then $\exists a \in A$ such that more than 1 arrow of $f^{-1}$ terminate at $a$. However, this would imply that more than 1 arrow of $f$ originates at $a$. Therefore, we've reached a contradiction where $f$ isn't a function. Hence, $f^{-1}$ must be injective.
+
+		Since $f^{-1}$ is both total and injective, $f^{-1}$ is an injective total relation. Therefore, we've reached a contradiction where $B \inj A$ is true. Hence, \eqref{p22blemma1} must be true.
+	\end{subproof}
+
+	\begin{subproof}[Proof of \eqref{p22blemma2}]
+		The proof is by contradiction. Suppose that $B \inj A$ is true but $A \surj B$ is false. Then $\exists \text{ an injective total relation } g : B \rightarrow A$.
+
+		Suppose that $g^{-1} : A \rightarrow B$ isn't surjective. Then $\exists b \in B$ such that no arrows of $g^{-1}$ terminate at B. However, this would imply that no arrows of $g$ originate at $b$. Therefore, we've reached a contradiction where $g$ isn't total. Hence, $g^{-1}$ must be surjective.
+
+		Suppose that $g^{-1}$ isn't a function. Then $\exists a \in A$ such that more than 1 arrow of $g^{-1}$ originates at $a$. However, this would imply that more than 1 arrow of $g$ terminates at $a$. Therefore, we've reached a contradiction where $g$ isn't injective. Hence, $g^{-1}$ must be a function.
+
+		Since $g^{-1}$ is both surjective and a function, $g^{-1}$ is a surjective function. Therefore, we've reached a contradiction where $A \surj B$ is true. Hence, \eqref{p22blemma2} must be true.
+	\end{subproof}
+
+	We've proved that both \eqref{p22blemma1} and \eqref{p22blemma2} are true. Hence, \eqref{p22bclaim} must be true.
+\end{proof}
+
+\subsection{(c)}
+Prove that
+\begin{equation}\label{p22cclaim}
+	A \inj B \land B \inj C \implies A \inj C
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		 & A \inj B \land B \inj C   &                                  & \iff     \\
+		 & B \surj A \land C \surj B & (\text{apply \eqref{p22bclaim}}) & \implies \\
+		 & C \surj A                 & (\text{apply \eqref{p22aclaim}}) & \iff     \\
+		 & A \inj C                  & (\text{apply \eqref{p22bclaim}})
+	\end{align*}
+	Hence, \eqref{p22cclaim} must be true.
+\end{proof}
+
+\subsection{(d)}
+Prove that
+\begin{equation}\label{p22dclaim1}
+	A \inj B \iff \exists \text{ a total injective function f} : A \rightarrow B
+\end{equation}
+\begin{proof}
+	From part 2 of Definition 4.5.2, we can rewrite \eqref{p22dclaim1} as
+	\begin{align}
+		 & \exists \text{ a total injective relation g} : A \rightarrow B & \iff \notag \\ &\exists \text{ a total injective function f} : A \rightarrow B& \label{p22dclaim2}
+	\end{align}
+
+	We will proceed by proving the following lemmas:
+	\begin{align}
+		 & \exists \text{ a total injective function f} : A \rightarrow B & \implies \notag \\ &\exists \text{ a total injective relation g} : A \rightarrow B& \label{p22dlemma1} \\
+		 & \exists \text{ a total injective relation g} : A \rightarrow B & \implies \notag \\ &\exists \text{ a total injective function f} : A \rightarrow B& \label{p22dlemma2}
+	\end{align}
+
+	\begin{subproof}[Proof of Lemma \eqref{p22dlemma1}]
+		\eqref{p22dlemma1} is trivially true since a function is a type of relation.  In other words, $f$ is also a relation.
+	\end{subproof}
+
+	\begin{subproof}[Proof of Lemma \eqref{p22dlemma2}]
+		$f$ can be constructed from $g$ by eliminating arrows of $g$ until there is exactly one arrow originating from every $a \in A$.  Hence, \eqref{p22dlemma2} must be true.
+	\end{subproof}
+
+	We've proved that \eqref{p22dlemma1} and \eqref{p22dlemma2} are true. Hence, \eqref{p22dclaim2} must be true and \eqref{p22dclaim1} must be true.
+
+\end{proof}
+
+\pagebreak
+\section{Problem 38}
+\subsection{(a)}
+\[
+	|f(A)| \le |B|
+\]
+
+\subsection{(b)}
+\[
+	|A| \ge |B|
+\]
+
+\subsection{(c)}
+\[
+	|f(A)| = |B|
+\]
+
+\subsection{(d)}
+\[
+	|f(A)| = |A|
+\]
+
+\subsection{(e)}
+\[
+	|A| = |B|
+\]
+
+\pagebreak
+
+\section{Problem 39}
+Let $A = \{a_0, a_1, ..., a_{n-1}\}$ be a set of size $n$, and and $B = \{b_0,b_1,...,b_{m-1}\}$ be a set of size $m$. Prove that
+\begin{equation}\label{p39claim}
+	|A \times B| = mn
+\end{equation}
+\begin{proof}
+	Let
+	\begin{align*}
+		 & f((a_i, b_j)) \Coloneqq mi + j                            \\
+		 & C \Coloneqq \Set{z \in \mathbb{N} | 0 \le z \le (mn - 1)}
+	\end{align*}
+
+	For every $c \in C$, there is exactly 1 $s \in A \times B$ such that $f(s) = c$. Therefore, $f$ is a bijection from $A \times B$ to $C$. From part 3 of Lemma 4.5.3 on page 116 of the book, it follows that
+	\[
+		|A \times B| = |C| = mn
+	\]
+
+	Hence, \eqref{p39claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 40}
+Prove that
+\begin{equation}\label{p40claim}
+	|X| \ge |R(X)|
+\end{equation}
+\begin{proof}
+	Let $n$ be the number of arrows that originate from an element of $X$.  Since $R$ is a function, at most 1 arrow originates from each member of $X$. Therefore,
+	\begin{equation}\label{p40eq1}
+		|X| \ge n
+	\end{equation}
+
+	From the definition of image, we know that $\forall r \in R(x)$ there exists an arrow originating from a member of $X$ that terminates at $r$. Therefore,
+	\begin{equation}\label{p40eq2}
+		|R(X)| \le n
+	\end{equation}
+
+	From \eqref{p40eq1} and \eqref{p40eq2}, it follows that
+	\[
+		|X| \ge n \ge |R(X)|
+	\]
+
+	Hence, \eqref{p40claim} must be true.
+
+\end{proof}
+
+
+
+\end{document}

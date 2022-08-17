@@ -1,0 +1,398 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{Chapter 1 Problem Solutions}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+\subsection{(a)}
+See the slides and lecture video for the details of this proof.
+\subsection{(b)}
+Again, see the slides and lecture video for the details of this proof.
+\subsection{(c)}
+If a = b, then our right triangle is isosceles and the four copies of our triangle completely cover a $c \times c$ square.  They also completely cover a $2a \times a$ rectangle.  I.e. the area of the square goes to zero. From this we can conclude:
+\[c^2 = c \cdot c = 2a \cdot a = 2a^2 = a^2 + a^2 = a^2 + b^2\]
+I.e. this proof of the Pythagorean Theorem still holds even when $a = b$.
+
+You could also object to this proof by pointing out the case where $a > b$. However, you could simply swap the labels so that the longer leg is now labeled $b$ and the shorter leg is now labeled $a$. With this new labeling, $a < b$ and the proof proceeds as before.
+\subsection{(d)}
+Indeed, this \textit{Proof by Picture} makes a number of assumptions:
+\begin{enumerate}
+	\item All lines are straight.
+	\item All angles are drawn to scale.
+	\item The angles of a triangle sum to 180\degree.
+	\item The angle opposite to $c$ is 90\degree.
+	\item The four angles of a square are all 90\degree.
+	\item The four sides of a square are all equal in length.
+\end{enumerate}
+
+Due to the difficulty in validating that a diagram is drawn correctly, algebraic proofs are preferable to pictorial proofs when available.
+
+\pagebreak
+\section{Problem 2}
+\subsection{(a)}
+The step $\sqrt{(-1)(-1)} = \sqrt{-1}\sqrt{-1}$ is incorrect. The short explanation is that although $i$ is defined such that $i^2 = -1$, $\sqrt{x}$ is undefined for $x < 0$. The longer explanation is that if we try to define $f(x) = \sqrt(x)$ for $x < 0$, we would need to let $f(x)$ map each real negative number to two imaginary numbers. Observe:
+\[-i^2 = (-1)^2(i^2) = i^2 = -1\]
+Therefore, $f(-1) = \pm i$. Indeed, if we accept that $\forall \; n < 0 \; \exists \; p > 0$ such that $n = -p$, $f(n) = \sqrt{-p} = \sqrt{-1}\sqrt{p} = \pm i \sqrt{p}$. From here, we conclude that $\sqrt{-1}\sqrt{-1}$ is equal to four different pairings of $-i$ and $i$: $-i \cdot i$, $i \cdot -i$, $i \cdot i$, and $-i \cdot -i$. These pairs evaluate to two distinct values: $\pm 1$. Therefore, in the step $\sqrt{(-1)(-1)} = \sqrt{-1}\sqrt{-1}$, the proof not only assumes that $\sqrt{(-1)(-1)} = 1$ but also that $\sqrt{(-1)(-1)} = -1$. Hence, the "proof" assumes what it is trying to prove and is "bogus".
+\subsection{(b)}
+If $1 = -1$:
+\[1 \cdot \frac{1}{2} = -1 \cdot \frac{1}{2}\]
+\[\frac{1}{2} = - \frac{1}{2}\]
+\[\frac{1}{2} + \frac{3}{2} = - \frac{1}{2} + \frac{3}{2}\]
+\[\frac{4}{2} = \frac{2}{2}\]
+\[2 = 1\]
+\subsection{(c)}
+Prove that for positive real numbers $r$ and $s$, $\sqrt{rs} = \sqrt{r}\sqrt{s}$ where $\sqrt{rs}$ is the positive square root of $rs$, $\sqrt{r}$ is the positive square root of $r$ and $\sqrt{s}$ is the positive square root of $s$.
+\begin{proof}
+	We use proof by contradiction. Suppose the claim is false such that $\sqrt{rs} \neq \sqrt{r}\sqrt{s}$. Then
+	\[
+		\sqrt{rs}^2 \neq (\sqrt{r}\sqrt{s})^2
+	\]
+	\[
+		rs \neq \sqrt{r}^2 \sqrt{s}^2
+	\]
+	\[
+		rs \neq rs
+	\]
+	This is obviously a contradiction so the claim must be true. Hence, $\sqrt{rs} = \sqrt{r}\sqrt{s}$.
+\end{proof}
+\pagebreak
+\section{Problem 3}
+\subsection{(a)}
+This bogus proof goes wrong in its second step. $\log_{10} (\frac{1}{2}) < 0$ so we must reverse the inequality we multiply both sides of the equation by this number. The corrected proof proceeds as follows:
+\[
+	3 > 2
+\]
+\[
+	3 \log_{10} \left(\frac{1}{2}\right) < 2 \log_{10} \left(\frac{1}{2}\right)
+\]
+\[
+	\log_{10} \left(\frac{1}{2}\right)^3 < \log_{10} \left(\frac{1}{2}\right)^2
+\]
+\[
+	\left(\frac{1}{2}\right)^3 < \left(\frac{1}{2}\right)^2
+\]
+\[
+	\frac{1}{8} < \frac{1}{4}
+\]
+This leads us to the correct claim that $\frac{1}{8} < \frac{1}{4}$.
+\subsection{(b)}
+The step $\$0.01 = (\$0.1)^2$ is incorrect because of the units. $0.01 = 0.1^2$ but $\$ \neq \$^2$ in the same way that $m \neq m^2$. I.e. the proof is conflating a "length" with an "area".
+\subsection{(c)}
+The "bug" in this proof is the third step where we subtract $b^2$ from both sides and conclude that $a^2 = b^2 = ab - b^2$. It isn't wrong per se but it is equivalent to stating that $0 = 0$, which locks us into the
+solution $a = 0$. $a = 0$ is indeed a solution to $a = b$ but any real number is a solution to this equation as well.
+\pagebreak
+\section{Problem 4}
+The bogus proof is objectionable because it starts out by assuming what it is trying to proof. I would fix it by reversing the order and filling in some additional details to clarify some of the steps.
+
+Prove that $\frac{a + b}{2} \geq \sqrt{ab}$ for all nonnegative real numbers $a$ and $b$.
+
+\begin{proof}
+	We know that $(a - b)^2 \geq 0$ because $a - b$ is a real number and the square of a real number is never negative. We can proceed as follows:
+	\[
+		(a - b)^2 \geq 0
+	\]
+	\[
+		a^2 - 2ab + b^2 \geq 0
+	\]
+	\[
+		a^2 + 2ab + b^2 \geq 4ab
+	\]
+	\[
+		(a + b)^2 \geq 4ab
+	\]
+	\[
+		\text{Take the positive square root:}
+	\]
+	\[
+		a + b \geq 2\sqrt{ab}
+	\]
+	\[
+		\frac{a + b}{2} \geq \sqrt{ab}
+	\]
+	Hence, we conclude with our claim.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 5}
+There are several ways in which the students' reasoning is flawed.
+
+First of all, they are assuming that the timing of the quiz is the surprise. This isn't necessarily true. The surprise could lie in the content, the difficulty or some random detail like the color of the paper or style of the font. Everyone would be truly surprised if Serious Albert gave a quiz in rainbow colored Comic Sans!
+
+Secondly, they are struggling with causality. You can adjust odds based on what you know about past events, but you can't do so based on what you speculate about future events.  If they reach the end of Thursday without a quiz, then they have a point that that the quiz will be given sometime on Friday. However, you can't use how you'd adjust the odds at the end of Thursday to predict what will happen on Thursday.
+
+Thirdly, even though past events can narrow the timing of the quiz, past events never completely eliminate uncertainty about the timing of the quiz. If the quiz isn't given by the end of Thursday, then the students know that the quiz will occur on Friday. However, they still don't know when on Friday the quiz will occur. Hence, the potential for surprise remains.
+
+\pagebreak
+
+\section{Problem 6}
+
+Prove that if $x = \log_7 n$, where $n$ is a positive integer, then x is either an integer or irrational.
+\begin{proof}
+	The proof is by case analysis. Let us consider two cases:
+	\begin{enumerate}
+		\item $\log_7 n$ is irrational.
+		\item $\log_7 n$ is rational.
+	\end{enumerate}
+	Since $\log_7 n$ must be either irrational or rational, we can prove that the claim is true by showing that the claim holds in both cases.
+
+	\textbf{Case 1:}
+	The claim holds trivially.
+
+	\textbf{Case 2:}
+	If $\log_7 n$ is rational, then $\log_7 n = \frac{p}{q}$ where $p$ and $q$ are integers and $q > 0$. Consider the following:
+	\[
+		7^{\log_7 n} = 7^{\frac{p}{q}}
+	\]
+	\[
+		Apply the definition of the log function:
+	\]
+	\[
+		n = 7^{\frac{p}{q}}
+	\]
+	\[
+		n^q = 7^p
+	\]
+
+	Now let us consider the following two subcases of Case 2:
+	\begin{enumerate}
+		\item $p = 0$
+		\item $p \neq 0$
+	\end{enumerate}
+	We can show that the claim holds for Case 2 by showing that it holds for both of these subcases.
+
+	\textbf{Case 2.1:}
+	If p = 0, then
+	\[
+		n^q = 7^0
+	\]
+	\[
+		n^q = 1
+	\]
+	\[
+		n = \sqrt[q]{1}
+	\]
+	\[
+		n = 1
+	\]
+	\[
+		x = \log_7 n = \log_7 1 = 0
+	\]
+	Since 0 is an integer, the claim holds in this subcase.
+
+	\textbf{Case 2.2:}
+	Since n is a positive integer and $q$ is an integer greater than 0, $n^q$ must be a positive. Therefore, p must be a positive integer as well since $n^q = 7^p$ and $7^p$ is not an integer for $p < 0$. Thus, $7$ is a factor of $n^q$. By the \textit{Fundamental Theorem of Arithmetic}, we conclude that $7$ is the sole prime factor of $n^q$.  Therefore, $7$ is also the sole prime factor of $n$ and $n = 7^k$ for some positive integer k. This implies that $k q = p$. Then
+	\[
+		x = \log_7 n = \frac{p}{q} = \frac{k q}{q} = k
+	\]
+	Hence, the claim holds in this subcase.
+
+	Since the claim holds for Case 2.1 and Case 2.2, it also holds for Case 2. The claim holds for Case 1 and Case 2. Hence, we conclude that the claim is true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 7}
+Prove by cases that $\max(r,s) + \min(r,s) = r + s$ for all real numbers $r$, $s$.
+\begin{proof}
+	The proof is by case analysis. There are two cases:
+	\begin{enumerate}
+		\item $\max(r,s) = r$ and $\min(r,s) = s$
+		\item $\max(r,s) = s$ and $\min(r,s) = r$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	\[
+		\max(r,s) + \min(r,s) = r + s
+	\]
+	The claim holds in Case 1.
+
+	\textbf{Case 2:}
+	\[
+		\max(r,s) + \min(r,s) = s + r = r + s
+	\]
+	The claim holds in Case 2.
+
+	The claim holds in all cases. Hence, we can conclude that the claim is true.
+\end{proof}
+
+\pagebreak
+\section{Problem 8}
+Prove that raising an irrational number to an irrational power can result in a rational number.
+\begin{proof}
+	The proof is by case analysis. Let us consider two cases:
+	\begin{enumerate}
+		\item $\sqrt{2}^{\sqrt{2}}$ is rational.
+		\item $\sqrt{2}^{\sqrt{2}}$ is irrational.
+	\end{enumerate}
+	Since $\sqrt{2}^{\sqrt{2}}$ must be either rational or irrational, we can prove that the claim is true by showing that the claim holds in both cases.
+
+	\textbf{Case 1:}
+	The claim holds since $\sqrt{2}$ is irrational.
+
+	\textbf{Case 2:}
+	Consider the following:
+	\[
+		\sqrt{2}^{{\sqrt{2}}^{\sqrt{2}}} = \sqrt{2}^{\sqrt{2}\sqrt{2}} = \sqrt{2}^2 = 2
+	\]
+	The claim holds since $\sqrt{2}$ is irrational and $2$ is rational.
+
+	The claim holds in all cases. Hence, we can conclude that the claim is true.
+\end{proof}
+\pagebreak
+\section{Problem 11}
+Prove that there is an irrational number $a$ such that $a^{\sqrt{3}}$ is rational.
+\begin{proof}
+	The proof is by case analysis. Let us consider two cases:
+	\begin{enumerate}
+		\item $\sqrt[3]{2}^{\sqrt{3}}$ is rational.
+		\item $\sqrt[3]{2}^{\sqrt{3}}$ is irrational.
+	\end{enumerate}
+	Since $\sqrt[3]{2}^{\sqrt{3}}$ must be rational or irrational, we can prove that the claim is true by showing that the claim holds in both cases.
+
+	\textbf{Case 1:}
+	Since $\sqrt[3]{2}$ is irrational, the claim holds in this case by setting $a = \sqrt[3]{2}$.
+
+	\textbf{Case 2:}
+	Consider the following:
+	\[
+		\sqrt[3]{2}^{{\sqrt{3}}^{\sqrt{3}}} = \sqrt[3]{2}^{\sqrt{3}\sqrt{3}} = \sqrt[3]{2}^3 = 2
+	\]
+	Since 2 is rational, the claim holds in this case by setting $a = \sqrt[3]{2}^{\sqrt{3}}$.
+
+	The claim holds in both cases. Hence, we conclude that the claim is true.
+\end{proof}
+
+\pagebreak
+\section{Problem 12}
+Prove that for any $n > 0$, if $a^n$ is even, then $a$ is even.
+\begin{proof}
+	We use proof by contradiction. Suppose $a^n$ is even but $a$ is not even. Therefore, $2$ is not a factor of $a$. Since $2$ is prime, we can deduce by the \textit{Fundamental Theorem of Arithmetic} that $2$ is not a factor of $a^n$. This leads us to the contradiction that $a^n$ is not even. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+\section{Problem 13}
+Prove that if $a \cdot b = n$, then either $a$ or $b$ must be $\leq \sqrt{n}$ where $a$, $b$, and $c$ are nonnegative real numbers.
+\begin{proof}
+	We use proof by contradiction. Suppose $a \cdot b = n$ but $a > \sqrt{n}$ and $b > \sqrt{n}$. Then
+	\[
+		a \cdot b > \sqrt{n}\sqrt{n} = n
+	\]
+	This is a contradiction. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+\section{Problem 14}
+Let $n$ be a nonnegative integer.
+\subsection{(a)}
+Prove that if $n^2$ is even, then $n$ is even.
+\begin{proof}
+	We use proof by contradiction. Suppose $n^2$ is even but $n$ is not even. Therefore, $2$ is not a factor of $n$. Since $2$ is prime, we can deduce by the \textit{Fundamental Theorem of Arithmetic} that $2$ is not a factor of $n^2$. This leads us to the contradiction that $n^2$ is not even. Hence, the claim must be true.
+\end{proof}
+\subsection{(b)}
+Prove that if $n^2$ is a multiple of $3$, then $n$ must be a multiple of $3$.
+\begin{proof}
+	We use proof by contradiction. Suppose $n^2$ is a multiple of $3$ but $n$ is not a multiple of $3$. Therefore, $3$ is not a factor of $n$. Since $3$ is prime, we can deduce by the \textit{Fundamental Theorem of Arithmetic} that $3$ is not a factor of $n^2$. This leads us to the contradiction that $n^2$ is not a multiple of $3$. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 15}
+Take $n = 2$ and $m = 4$. Then $n^2 = 4$ is a multiple of $m$ but $n$ is not a multiple of $m$.
+
+For an example where $m < n$, take $n = 6$ and $m = 4$. Then $n^2 = 36$ is a multiple of $m$, but $n$ is not a multiple of $m$.
+
+\pagebreak
+
+\section{Problem 16}
+We can generalize Theorem 1.8.1 to any prime number $p$. However, we should first prove a more general version of Problem 14.
+
+Given a prime number $p$, prove that if $n^2$ is a multiple of $p$, then $n$ must be a multiple of $p$.
+\begin{proof}
+	We use proof by contradiction. Suppose $n^2$ is a multiple of $p$ but $n$ is not a multiple of $p$. Therefore, $p$ is not a factor of $n$. Since $p$ is prime, we can deduce by the \textit{Fundamental Theorem of Arithmetic} that $p$ is not a factor of $n^2$. This leads us to the contradiction that $n^2$ is not a multiple of $p$. Hence, the claim must be true.
+\end{proof}
+
+With that proof out of the way, we are now ready to generalize Theorem 1.8.1.
+
+Given a prime number $p$, prove that $\sqrt{p}$ is irrational.
+\begin{proof}
+	We use proof by contradiction. Suppose that $\sqrt{p}$ is ration. Then $\sqrt{p} = \frac{n}{d}$ where $n$ and $d$ are integers such that $d > 0$ and $n$ and $d$ have no common factors. Consider the following:
+	\[
+		p = \frac{n^2}{d^2}
+	\]
+	\[
+		p d^2 = n^2
+	\]
+	So $p$ is a factor of $n^2$. From our previous proof, we know that this is only possible if $p$ is also a factor of $n$. Therefore, $n = p k$ for some nonzero integer $k$ and:
+	\[
+		n^2 = (p k)^2 = p^2 k^2
+	\]
+	\[
+		p d^2 = p^2 k^2
+	\]
+	\[
+		d^2 = p k^2
+	\]
+	I.e. $p$ is a factor of $d^2$. From our previous proof, we know that this is only possible if $p$ is also a factor of $d$. We have reached a contradiction since $n$ and $d$ share a common factor of $p$. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 17}
+Prove that $\log_4 6$ is irrational.
+\begin{proof}
+	We use proof by contradiction. Suppose that $\log_4 6$ is rational. Then $\log_4 6 = \frac{n}{d}$ where $n$ and $d$ are integers, $d > 0$, and $n$ and $d$ do not share any common factors. Consider the following:
+	\[
+		4^{\log_4 6} = 4^{\frac{n}{d}}
+	\]
+	\[
+		\text{Apply the definition of the log function:}
+	\]
+	\[
+		6 = 4^{\frac{n}{d}}
+	\]
+	\[
+		6^d = 4^n
+	\]
+	\[
+		2^d 3^d = 2^{2n}
+	\]
+	\[
+		3^d = 2^{2n - d}
+	\]
+	Since both $3$ and $2$ are prime numbers, we conclude from the \textit{Fundamental Theorem of Arithmetic} that the above equation can only satisfied if both sides equal 1. I.e $d = 0$ and $2n - d = 0$, which implies that $d = n = 0$.  This is a contradiction since $d > 0$. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 23}
+Prove that $2 \log_2 3$ is irrational.
+\begin{proof}
+	We use proof by contradiction. Suppose that $\log_2 3$ is rational. Then $\log_2 3 = \frac{n}{d}$ where $n$ and $d$ are integers, $d > 0$, and $n$ and $d$ do not share any common factors. Consider the following:
+	\[
+		2^{\log_2 3} = 2^{\frac{n}{d}}
+	\]
+	\[
+		\text{Apply the definition of the log function:}
+	\]
+	\[
+		3 = 2^{\frac{n}{d}}
+	\]
+	\[
+		3^d = 2^n
+	\]
+	Since both $3$ and $2$ are prime numbers, we conclude from the \textit{Fundamental Theorem of Arithmetic} that the above equation can only satisfied if both sides equal 1. I.e. $d = n = 0$. This is a contradiction since $d > 0$. Hence, the claim must be true.
+\end{proof}
+
+\end{document}

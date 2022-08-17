@@ -1,0 +1,940 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{Chapter 3 Problem Solutions}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+If IMPLIES were redefined such that $P$ IMPLIES $Q$ is false when $P$ is false (while keeping its definition the same when $P$ is true), then this redefined IMPLIES would have the same truth table as AND.
+
+\pagebreak
+
+\section{Problem 2}
+\subsection{(a)}
+$\neg Q \implies R$
+\subsection{(b)}
+$P \land Q \implies R$
+\subsection{(c)}
+$R \implies P$
+\subsection{(d)}
+$P \land \neg Q \implies R$
+
+\pagebreak
+
+\section{Problem 3}
+It is reasonable to translate these two IF-THEN statements in different ways into propositional formulas because the mother is invoking a conventional implication whereas the mathematician is invoking a mathematical implication.
+
+In a conventional implication, there is a causal connection between hypothesis and conclusion. Either the hypothesis and conclusion are both true or they are both false. This corresponds to IFF.
+
+A mathematical implication, however, lacks a casual connection between hypothesis and conclusion. If the hypothesis is true, the conclusion must be true as well.  On the other hand, if the hypothesis is false, the conclusion can be either true or false. This corresponds to IMPLIES.
+
+\pagebreak
+
+\section{Problem 4}
+See ch3\_p4.py for a Python script solution.
+
+Sample output for n = 4:
+
+\begin{verbatim}
+T T T T
+T T T F
+T T F F
+T T F T
+T F T F
+T F F F
+T F F T
+T F T T
+F T T F
+F T F F
+F T F T
+F F T F
+F F F F
+F F F T
+F F T T
+F T T T
+\end{verbatim}
+
+
+\pagebreak
+
+\section{Problem 5}
+
+We will denote truth assignments for formulas (*) and (**) as tuples of the form (P, Q, R).
+
+\subsection{(a)}
+\[
+	\begin{array}{|c|c|c|c c c c c|c c|}
+		P & Q & R & (P \implies Q) & \land      & (P \implies R) & \land & (R \implies P) & P \land    & Q \land R \\
+		\hline
+		T & T & T & T              & \mathbf{T} & T              & T     & T              & \mathbf{T} & T         \\
+		T & T & F & T              & \mathbf{F} & F              & F     & T              & \mathbf{F} & F         \\
+		T & F & T & F              & \mathbf{F} & T              & T     & T              & \mathbf{F} & F         \\
+		T & F & F & F              & \mathbf{F} & F              & F     & T              & \mathbf{F} & F         \\
+		F & T & T & T              & \mathbf{F} & T              & F     & F              & \mathbf{F} & T         \\
+		F & T & F & T              & \mathbf{F} & F              & F     & T              & \mathbf{F} & F         \\
+		F & F & T & T              & \mathbf{F} & T              & F     & F              & \mathbf{F} & F         \\
+		F & F & F & T              & \mathbf{T} & T              & T     & T              & \mathbf{F} & F         \\
+	\end{array}
+\]
+(*) is T and (**) is F for (F, F, F).
+
+\subsection{(b)} Sloppy Sam is relying on conventional implication, where a hypothesis and a conclusion are either both true or both false, in a mathematical context, where the falsehood of a hypothesis does not affect the truth of a conclusion.
+
+\pagebreak
+
+\section{Problem 6}
+\subsection{(a)}
+\begin{align*}
+	c_0 = \;     & b                     \\
+	s_0 = \;     & a_0 \oplus c_0        \\
+	c_1 = \;     & a_0 \land c_0         \\
+	s_1 = \;     & a_1 \oplus c_1        \\
+	c_2 = \;     & a_1 \land c_1         \\
+	             & ...                   \\
+	c_i = \;     & a_{i-1} \land c_{i-1} \\
+	s_i = \;     & a_i \oplus c_1        \\
+	c_{i+1} = \; & a_i \land c_i         \\
+	             & ...                   \\
+	c_{n} = \;   & a_{n-1} \land c_{n-1} \\
+	s_n = \;     & a_n \oplus c_n        \\
+	c_{n+1} = \; & a_{n+1} \land c_{n+1} \\
+	c = \;       & c_{n+1}
+\end{align*}
+I.e. $s_i = a_i \oplus c_i$ for $0 \leq i \leq n$, $c_0 = b$, and $c_i = a_{i-1} \land c_{i-1}$ for $1 \leq i \leq n+1$.
+
+\subsection{(b)}
+Notice how after the zeroth bit, we are chaining together 1-bit full adders. We could easily turn this into a $n+1$ bit full adder by introducing a carry bit input and replacing the zeroth bit half=adder with a full adder.
+\begin{align*}
+	c_0 = \;     & b_0                                                                   \\
+	s_0 = \;     & a_0 \oplus c_0                                                        \\
+	c_1 = \;     & a_0 \land c_0                                                         \\
+	s_1 = \;     & (a_1 \oplus b_1) \oplus c_0                                           \\
+	c_2 = \;     & ((a_1 \oplus b_1) \land c_1) \lor (a_1 \land b_1)                     \\
+	             & ...                                                                   \\
+	c_i = \;     & ((a_{i-1} \oplus b_{i-1}) \land c_{i-1}) \lor (a_{i-1} \land b_{i-1}) \\
+	s_i = \;     & (a_i \oplus b_i) \oplus c_{i-1}                                       \\
+	             & ...                                                                   \\
+	c_n = \;     & ((a_{n-1} \oplus b_{n-1}) \land c_{n-1}) \lor (a_{n-1} \land b_{n-1}) \\
+	s_n  = \;    & (a_n \oplus b_n) \oplus c_{n-1}                                       \\
+	c_{n+1} = \; & ((a_n \oplus b_n) \land c_n) \lor (a_n \land b_n)                     \\
+	c = \;       & c_{n+1}
+\end{align*}
+I.e. $s_0 = a_0 \oplus c_0$, $s_i = (a_i \oplus b_i) \oplus c_{i-1}$ for $1 \leq i \leq n$, $c_0 = b_0$, $c_1 = a_0 \land c_0$, $c_i = ((a_{i-1} \oplus b_{i-1}) \land c_{i-1}) \lor (a_{i-1} \land b_{i-1})$ for $2 \leq i \leq n+1$.
+
+\subsection{(c)}
+\begin{align*}
+	\text{total } \land = \;  & 2n + 1 \\
+	\text{total } \lor = \;   & n      \\
+	\text{total } \oplus = \; & 3n + 1
+\end{align*}
+
+\pagebreak
+
+\section{Problem 7}
+\subsection{(a)}
+$c = 1$ only if $a_i = 1 \; \forall i$ such that $0 \le i \le a_{2n + 1}$. However, if this is the case, then both of the single size add1-modules carry. Hence:
+\[
+	c = c_{(1)} \land c_{(2)}
+\]
+
+\subsection{(b)}
+If the lower half does not carry, the upper half should remain unchanged. I.e. output of the upper half should be equal to its input. On the other hand, if the lower half does carry, the upper half should be incremented by 1. I.e. the output of the upper half should be equal to the output of the upper single-size add1=module. Hence:
+\[
+	p_{n+i} = (\neg c_{(1)} \land a_{n+i}) \lor (c_{(1)} \land r_{i-1})
+\]
+
+\subsection{(c)}
+If $b = 1$, we add 1 to $a$. Otherwise, $a$ is unchanged:
+\[
+	s_i = (b \land p_i) \lor (\neg b \land a_i)
+\]
+
+\subsection{(c)}
+We found that there is 1 propositional operator for computing each output bit of a add-1 module. Furthermore, up to two more gates can be added for the upper bits when choosing between the output of the upper add-1 module and the raw input.  I.e. the number of gates on the path from the input to output of any given bit of a add1-module is bounded by a constant: $3$.
+
+One may object by pointing out that the carry of the lower add-1 module must resolve before we can choose the output of the upper module. However, the power of the parallel half-adder is that we can grow it by adding add-1 modules of a constant size such that we only ever need to wait for one level of add-1 modules to resolve. The number of operators on the output path of the ripple carry half-adder, however, continues to increase. Hence, for each subsequent doubling of $n$, the latency of the parallel half adder remains nearly constant (but not quite; part (b) shows us that two gates are added to the maximum output path for each add-1 module added; the rate of growth is actually proportional to $\log_2 n$) for each doubling of $n$ while latency of the ripple carry half-adder continues to double.
+
+\pagebreak
+
+\section{Problem 8}
+\subsection{(a)}
+The formula in the claim has 6 propositional variables. Therefore, the corresponding truth table for this formula has $2^6 = 64$ rows.
+
+\subsection{(b)}
+Prove that there are exactly two truth environments for the variable M, N, P, Q, R, S that satisfy the following formula:
+\begin{equation}\label{p8formula}
+	(\neq P \lor Q) \land (\neq Q \lor R) \land (\neg R \lor S) \land (\neg S \lor P) \land M \land \neg N
+\end{equation}
+
+We will denote a truth a environment for \eqref{p8formula} as a tuple of the form $(M, N, P, Q, R, S)$.
+
+\begin{proof}
+	The proof is by case analysis. Let us consider the following cases:
+	\begin{enumerate}
+		\item $P = T$
+		\item $P = F$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	In order for \eqref{p8formula} to evaluate to true, each of the 6 clauses connected by $\land$ operators must evaluate to true. Since $P = T$, $(\neq P \lor Q) = T \implies Q = T$. Since $Q = T$, $(\neg Q \lor R) = T \implies R = T$. Since $R = T$, $(\neg R \lor S) = T \implies S = T$. Finally, $M = T \implies M = T$ and $\neg N = T \implies N = F$. Hence, in this case, (T, F, T, T, T, T) is the only environment under which \eqref{p8formula} evaluates to T.
+
+	\textbf{Case 2:}
+	In order for \eqref{p8formula} to evaluate to true, each of the 6 clauses connected by $\land$ operators must evaluate to true. Since $P = F$, $(\neg S \lor P) = T \implies S = F$. Since $S = F$, $(\neg R \lor S) = T \implies R = F$. Since $R = F$, $(\neg Q \lor R) = T \implies Q = F$. Finally, $M = T \implies M = T$ and $\neg N = T \implies N = F$. Hence, in this case, (T, F, F, F, F, F) is the only environment under which \eqref{p8formula} evaluates to T.
+
+	In Case 1, (T, F, T, T, T, T) is the only environment under which \eqref{p8formula} evaluates to T. In Case 2, (T, F, F, F, F, F) is the only environment under which \eqref{p8formula} evaluates to T. Since there are no further cases to consider, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 9}
+\subsection{(a)}
+$n - 1$
+\subsection{(b)}
+For each doubling of $n$, the maximum number of AND gates on the path from an input to the output doubles for the serial circuit but only increases by 1 for the tree circuit. Therefore, tree circuit is exponentially faster than the serial circuit.
+\subsection{(c)}
+Assume $n$ is a power of two. Prove that the $n$-input tree circuit has $n - 1$ AND-gates.
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of counterexamples to our claim. We will prove by contradiction that $C$ is empty.
+
+	Suppose $C$ is not empty. Then by the WOP $\exists k$ such that $k$ is the smallest value of $n$ for which our claim does not hold. We know that our claim holds for $n = 2$ since a 2-input tree circuit is simply a single AND-gate. We also know that our claim holds for $n = 4$ since Figure 3.4 depicts a 4-input tree circuit consisting of 3 AND-gates. Therefore, $k \ge 8$.
+
+	Since a $k$-input tree circuit is the smallest tree circuit for which our claim does not hold, our claim must hold for a $\frac{k}{2}$-input tree circuit. In other words, a $\frac{k}{2}$-input tree circuit has $\frac{k}{2} - 1$ AND-gates. In order to extend a $\frac{k}{2}$-input tree circuit to a $k$-input tree circuit, we must add a row of $\frac{k}{2}$ AND-gates. Therefore, a $k$-input tree circuit has $\frac{k}{2} - 1 + \frac{k}{2} = k - 1$ AND-gates.
+
+	We've reached a contradiction since we've shown that our claim holds for a $k$-input tree circuit. Hence, $C$ is empty and our claim must be true.
+\end{proof}
+
+
+\pagebreak
+
+\section{Problem 10}
+\subsection{(a)}
+A formula is satisfiable $\iff$ its negation is not valid.
+\subsection{(b)}
+A formula is valid $\iff$ its negation is not satisfiable.
+\subsection{(c)}
+Formula F is equivalent to formula G $\iff$ $F \oplus G$ is not satisfiable.
+
+\pagebreak
+
+\section{Problem 11}
+We will denote environments for our propositional formulas as tuples of the form $(M, P, Q)$. If a variable is not in a formula, it is omitted from the tuple.
+
+\subsection{(a)}
+$M \implies Q$ is satisfiable but not valid. E.g. this formula is T for (T, T) but F for (T, F).
+
+\subsection{(b)}
+$M \implies (\neg P \lor \neg Q)$ is satisfiable but not valid. E.g. this formula evaluates to T for (T, F, T) but F for (T, T, T).
+
+\subsection{(c)}
+$M \implies (M \land (P \implies M))$ is valid since it evaluates to T for all possible environments: (T, T), (T, F), (F, T), and (F, F).
+
+\subsection{(d)}
+$(P \lor Q) \implies Q$ is satisfiable but not valid. E.g. this formula evaluates to T for (T, T) but F for (T, F).
+
+\subsection{(e)}
+$(P \lor Q) \implies (\neg P \land \neg Q)$ is not satisfiable since it evaluates to F for all possible environments: (T, T), (T, F), (F, T), and (F, F).
+
+\subsection{(f)}
+$(P \lor Q) \implies (M \land (P \implies M))$ is satisfiable but not valid. E.g. this formula evaluates to T for (T, T, T) but F for (F, T, T)
+
+\subsection{(g)}
+$(P \oplus Q) \implies Q$ is satisfiable but not valid. E.g. this formula evaluates to T for (F, T) but to F for (T, F)
+
+\subsection{(h)}
+$(P \oplus Q) \implies (\neg P \lor \neg Q)$ is valid since it evaluates to T for all possible environments: (T, T), (T, F), (F, T), (F, F)
+
+\subsection{(i)}
+$(P \oplus Q) \implies (M \land (P \implies M))$ is satisfiable but not valid. E.g. this formula evaluates to T for (T, F, T) but F for (F, T, F)
+
+\pagebreak
+
+\section{Problem 12}
+Prove by truth table that:
+\begin{equation}\label{p12claim}
+	(P \oplus Q) \equiv \neg (P \iff Q)
+\end{equation}
+
+\begin{proof}
+	\[
+		\begin{array}{|c|c|c|c c|}
+			P & Q & (P \oplus Q) & \neg       & (P \iff Q) \\
+			\hline
+			T & T & \mathbf{F}   & \mathbf{F} & T          \\
+			T & F & \mathbf{T}   & \mathbf{T} & F          \\
+			F & T & \mathbf{T}   & \mathbf{T} & F          \\
+			F & F & \mathbf{F}   & \mathbf{F} & T
+		\end{array}
+	\]
+
+	The truth table for $(P \oplus Q)$ is identical to the truth table for $\neg (P \iff Q)$. Hence, \eqref{p12claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 14}
+Prove by truth table that:
+\begin{equation}\label{p14claim}
+	(P \lor (Q \land R)) \equiv ((P \lor Q) \land (P \lor R))
+\end{equation}
+
+\begin{proof}
+	\[
+		\begin{array}{|c|c|c|c c|c c c|}
+			P & Q & R & (P \; \lor    & (Q \land R)) & ((P \lor Q) & \land      & (P \lor R)) \\
+			\hline
+			T & T & T & \; \mathbf{T} & T            & T           & \mathbf{T} & T           \\
+			T & T & F & \; \mathbf{T} & F            & T           & \mathbf{T} & T           \\
+			T & F & T & \; \mathbf{T} & F            & T           & \mathbf{T} & T           \\
+			T & F & F & \; \mathbf{T} & F            & T           & \mathbf{T} & T           \\
+			F & T & T & \; \mathbf{T} & T            & T           & \mathbf{T} & T           \\
+			F & T & F & \; \mathbf{F} & F            & T           & \mathbf{F} & F           \\
+			F & F & T & \; \mathbf{F} & F            & F           & \mathbf{F} & T           \\
+			F & F & F & \; \mathbf{F} & F            & F           & \mathbf{F} & F
+		\end{array}
+	\]
+
+	The truth table for $(P \lor (Q \land R))$ is identical to the truth table for $((P \lor Q) \land (P \lor R))$. Hence, \eqref{p14claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 15}
+\subsection{(a)}
+Since this formula has 13 propositional variables, its
+\textit{truth table} has $2^13$ = 8192 rows. It would be very hard for a single person to verify the validity of this formula by \textit{truth table} using only pencil and paper.
+
+\subsection{(b)}
+Prove that
+\begin{equation}\label{p15claim}
+	(\neg (\neg A \implies B) \land A \land C) \implies (D \land E \land F \land G \land H \land I \land J \land K \land L \land M) \\
+	\text{ is valid}
+\end{equation}
+
+\begin{proof}
+	The proof is by case analysis. Let us consider the cases:
+	\begin{enumerate}
+		\item $A = T$
+		\item $A = F$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	Since $A = T$, $(\neg A \implies B) = T$ and $(\neg (\neg A \implies B)) = F$. Therefore, $(\neg (\neg A \implies B) \land A \land C) = F$. Hence, \eqref{p15claim} holds for this case.
+
+	\textbf{Case 2:}
+	Since $A = F$, $(\neg (\neg A \implies B) \land A \land C) = F$. Hence, \eqref{p15claim} holds for this case.
+
+	\eqref{p15claim} holds for Cases 1 and 2. Hence, \eqref{p15claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 16}
+\subsection{(a)}
+Prove by truth table that
+\begin{equation}\label{p16claim}
+	(P \implies Q) \lor (Q \implies P)
+\end{equation}
+is valid.
+\begin{proof}
+	\[
+		\begin{array}{|c|c|c c c|}
+			P & Q & (P \implies Q) & \lor       & (Q \implies P) \\
+			\hline
+			T & T & T              & \mathbf{T} & T              \\
+			T & F & F              & \mathbf{T} & T              \\
+			F & T & T              & \mathbf{T} & F              \\
+			F & F & T              & \mathbf{T} & T
+		\end{array}
+	\]
+
+	\eqref{p16claim} evaluates to True in all of the rows of its truth table. Hence, \eqref{p16claim} is valid.
+\end{proof}
+
+\subsection{(b)}
+\[
+	R \Coloneqq (P \land Q) \lor (\neg P \land \neg Q)
+\]
+I.e. $R \equiv P \iff Q$.
+
+\subsection{(c)}
+Explain why
+\[
+	Q \Coloneqq P \text{ is valid} \iff \neg P
+\]
+is not satisfiable.
+
+$A \iff B$ is True only when $A$ and $B$ are both True or when $A$ and $B$ are both false. If $P$ is valid is True, then $\neg P$ is always False. Hence, $Q$ is not satisfiable.
+
+\subsection{(d)}
+Let
+\[
+	S \Coloneqq \neg P_1 \lor \neg P_2 \lor ... \neg P_k
+\]
+$S$ is True iff at least one of the $P_i$'s are False. Hence, $P_1, ..., P_k$ is not consistent iff $S$ is valid.
+
+\pagebreak
+
+\section{Problem 17}
+\subsection{(a)}
+The specification is described by the following system of propositional formulas:
+\begin{equation}
+	\label{p17e1}
+	\neg L \implies Q
+\end{equation}
+\begin{equation}
+	\label{p17e2}
+	\neg L \implies B
+\end{equation}
+\begin{equation}
+	\label{p17e3}
+	\neg L \iff N
+\end{equation}
+\begin{equation}
+	\label{p17e4}
+	\neg Q \implies B
+\end{equation}
+\begin{equation}
+	\label{p17e5}
+	\neg B
+\end{equation}
+\subsection{(b)}
+We will denote a truth assignment for the specification as a tuple (L, Q, B, N).
+
+In order to satisfy this specification, all five equations in our system of equations must evaluate to T:
+
+\begin{align*}
+	(\eqref{p17e5} = T) \implies                 & (B = F)             \\
+	((B = F) \land (\eqref{p17e4} = T)) \implies & (Q = T)             \\
+	((B = F) \land (\eqref{p17e2} = T)) \implies & (L = T)             \\
+	((L = T) \land (\eqref{p17e3} = T)) \implies & (N = F)             \\
+	((L = T) \land (Q = T)) \implies             & (\eqref{p17e1} = T)
+\end{align*}
+
+Therefore, the truth assignment (T, T, F, F) satisfies the specification. Hence, the specification is satisfiable.
+
+\subsection{(c)}
+The truth assignment in part(b) is the only one that satisfies the specification. (\eqref{p17e5} = T) requires that $B = F$. This starts a chain of implications via the other equations that locks the rest of the propositional variables to a particular value. See the reasoning presented in part(b) for further details.
+
+\pagebreak
+
+\section{Problem 18}
+\subsection{(a)}
+\begin{align*}
+	A \text{ IMPLIES } B & \equiv \text{NOT}(A) \text{ OR } B                                               \\
+	A \text{ IFF } B     & \equiv (A \text{ AND } B) \text{ OR } (\text{NOT}(A) \text{ AND } \text{NOT}(B)) \\
+	A \text{ XOR } B     & \equiv (A \text{ OR } B) \text{ AND NOT}(A \text{ AND } B)
+\end{align*}
+Therefore, every propositional operator is equivalent to some combination of AND-OR-NOT operators. Hence, every propositional formula is equivalent to an AND-OR-NOT formula.
+
+\subsection{(b)}
+From (3.15), De Morgan's Law for OR, we can conclude that:
+\[
+	A \text{ AND } B \equiv \text{NOT}(\text{NOT}(A) \text{ OR } \text{NOT}(B))
+\]
+Hence, we don't even need AND since it is equivalent to a combination of OR-NOT operators.
+
+\subsection{(c)}
+Observe that:
+\begin{align*}
+	A \text{ NAND } B & \Coloneqq \text{NOT}(A \text{ AND } B)                       \\
+	A \text{ AND } B  & \equiv \text{NOT}(A \text{ NAND } B)                         \\
+	\text{NOT}(A)     & \equiv A \text{ NAND } A                                     \\
+	A \text{ AND } B  & \equiv (A \text{ NAND } B) \text{ NAND } (A \text{ NAND } B)
+\end{align*}
+
+From (3.14), De Morgan's Law for AND, we can conclude that:
+\begin{align*}
+	A \text{ OR } B & \equiv \text{NOT}(\text{NOT}(A) \text{ AND } \text{NOT}(B))  \\
+	A \text{ OR } B & \equiv (A \text{ NAND } A) \text{ NAND } (B \text{ NAND } B)
+\end{align*}
+
+Since AND-OR-NOT operators are equivalent to some combination of NAND operators and every propositional operator is equivalent to some combination of AND-OR-NOT operators, every propositional operator is equivalent to some combination of NAND operators. Hence, every propositional formula is equivalent to a NAND formula. I.e. we can "get by" with just NAND.
+
+\pagebreak
+
+\section{Problem 19}
+\[
+	P \Coloneqq (A \land B \land \neg C \land D \land \neg E) \lor (\neg A \land B \land \neg C \land \neg E)
+\]
+\subsection{(a)}
+P is almost in Full Disjunctive Normal Form. The only issue is that the second clause doesn't mention $D$. We can introduce it by applying Validity for OR and identity for AND:
+\[
+	(\neg A \land B \land \neg C \land \neg E) \equiv (\neg A \land B \land \neg C \land \neg E) \land (D \lor \neg D)
+\]
+Now apply distributivity of OR over AND:
+\begin{align*}
+	(\neg A \land B \land \neg C \land \neg E) \equiv & (\neg A \land B \land \neg C \land D \land \neg E) \lor \\
+	                                                  & (\neg A \land B \land \neg C \land \neg D \land \neg E)
+\end{align*}
+We can now write a Full Disjunctive Normal Form for P:
+\begin{align*}
+	P \equiv & (A \land B \land \neg C \land D \land \neg E) \lor                                        \\
+	         & (\neg A \land B \land \neg C \land D \land \neg E) \lor                                   \\
+	         & (\neg A \land B \land \neg C \land \neg D \land \neg E) \tag{\theequation}\label{p19fdnf}
+\end{align*}
+\subsection{(b)}
+I would expect C to have 29 clauses.
+
+One way to derive the FDN and FCN forms of a propositional formula is to inspect its truth table. Each row where the propositional formula evaluates to true corresponds to a clause in its FDNF. Each row where the propositional formula evaluates to false corresponds to a clause in its FCNF. Since P has 5 distinct propositional variables, its truth table has $2^5 = 32$ rows. \eqref{p19fdnf} has 3 clauses so P evaluates to true in only $3$ out of $32$ rows of its truth table. Therefore, P must evaluate to false in the other $29$ rows of its truth table. Hence, P's FCNF has 29 clauses.
+
+\pagebreak
+
+\section{Problem 20}
+In sections (a) and (b) of Problem 18, we demonstrated that every propositional operator is equivalent to some combination of OR-NOT operators. Therefore, every propositional formula is equivalent to some formula whose only connectives are OR-NOT operators.
+
+This problem is the NOR analog to section (c) of Problem 18. Observe that:
+\begin{align*}
+	\text{NOT}(A)   & \equiv A \text{ NOR } A                                   \\
+	A \text{ OR } B & \equiv \text{NOT}(A \text{ NOR } B)                       \\
+	A \text{ OR } B & \equiv (A \text{ NOR } B) \text{ NOR } (A \text{ NOR } B)
+\end{align*}
+Therefore, both NOT and OR are equivalent to some combination of NOR operators. Hence, every propositional formula is equivalent to some formula whose only connectives are NOR operators because every propositional formula is equivalent to some formula whose only connectives are OR-NOT operators.
+
+\pagebreak
+
+\section{Problem 21}
+Let us denote our propositional formula as $P$. Its complement is $\neg P$. Suppose we have a DNF for $\neg P$:
+\begin{equation}\label{p21eq1}
+	\neg P \equiv Q_1 \lor Q_2 \lor ... \lor Q_n
+\end{equation}
+where each $Q_i$ is a conjunction of propositional variables in $P$ (or their negations). Applying (3.15), De Morgan's Law for OR, to \eqref{p21eq1}:
+\begin{equation}\label{p21eq2}
+	P \equiv \neg Q_1 \land \neg Q_2 \land ... \land \neg Q_n
+\end{equation}
+Furthermore, from (3.14), De Morgan's Law for AND, we know that the negation of a conjunction is equivalent to a disjunction. Therefore, $\forall i \in \mathbb{Z^+}$ such that $1 \le i \le n$, $\neg Q_i \equiv R_i$ where each $R_i$ is a disjunction of propositional variables in $P$ (or their negations). I.e. by applying (3.14) to each $\neg Q_i$ in \eqref{p21eq2}, we find:
+\begin{equation}\label{p21eq3}
+	P \equiv R_1 \land R_2 \land ... \land R_n
+\end{equation}
+Hence, \eqref{p21eq3} is a CNF for $P$.
+
+\pagebreak
+
+\section{Problem 22}
+Disjunctive Normal Form:
+\begin{align*}
+	P \equiv & (A \land B \land C \land D) \lor                \\
+	         & (A \land B \land \neg C \land D) \lor           \\
+	         & (A \land \neg B \land C \land D) \lor           \\
+	         & (A \land \neg B \land C \land \neg D) \lor      \\
+	         & (A \land \neg B \land \neg C \land D) \lor      \\
+	         & (A \land \neg B \land \neg C \land \neg D) \lor \\
+	         & (\neg A \land B \land C \land D) \lor           \\
+	         & (\neg A \land B \land \neg C \land D) \lor      \\
+	         & (\neg A \land \neg B \land \neg C \land D) \lor \\
+	         & (\neg A \land \neg B \land \neg C \land \neg D)
+\end{align*}
+
+Conjunctive Normal Form:
+\begin{align*}
+	P \equiv & (\neg A \lor \neg B \lor \neg C \lor D) \land \\
+	         & (\neg A \lor \neg B \lor C \lor D) \land      \\
+	         & (A \lor \neg B \lor \neg C \lor D)            \\
+	         & (A \lor \neg B \lor C \lor D)                 \\
+	         & (A \lor B \lor \neg C \lor \neg D)            \\
+	         & (A \lor B \lor \neg C \lor D)
+\end{align*}
+
+\pagebreak
+
+\section{Problem 24}
+\subsection{(a)}
+For every binary gate $G_i \in C$, construct a constraint formula as follows:
+\[
+	X_i \Coloneqq (P_i \land Q_i) \iff R_i
+\]
+where $P_i$ and $Q_i$ are the input wire variables of $G_i$ and $R_i$ is the output wire variable of $G_i$. $n$ is the number of binary gates in $C$ and $G_n$ is chosen such that its output wire variable $R_n$ corresponds to the output of $C$. Now let:
+\begin{align*}
+	Y   & \Coloneqq X_1 \land X_2 \land ... \land X_n \\
+	F_C & \Coloneqq Y \land R_n
+\end{align*}
+The conjunction of constraints $Y$ ensures that $F_C$ is True only if $R_n$ is equal to the output of $C$ and the final conjunction with $R_n$ ensures that $F_C$ is True only if $R_n$ is True. Hence, $F_C$ is satisfiable iff $C$ gives output T for some set of input values.
+
+\subsection{(b)}
+Since the size of $F_C$ is proportional to the number of wires in $C$, an efficient method of solving $F_C$'s satisfiability is also an efficient method of solving $C$'s satisfiability. Hence, we can conclude that an efficient way of solving SAT would yield an efficient way to solve circuit-SAT.
+
+\pagebreak
+
+\section{Problem 25}
+\subsection{(a)}
+Consider:
+\begin{align*}
+	 & (X_1 \iff (P \oplus Q)) \land   \\
+	 & (X_2 \iff (X_1 \oplus R)) \land \\
+	 & (A \iff (\neg P \land S)) \land \\
+	 & (O \iff (X_2 \lor A))
+	\tag{\theequation}\label{p25eq1}
+\end{align*}
+\begin{equation}\label{p25eq2}
+	\eqref{p25eq1} \land O
+\end{equation}
+
+\eqref{p25eq1} evaluates to True iff O evaluates to the same value as (3.33).  Therefore, \eqref{p25eq2} evaluates to True iff O evaluates to the same value as (3.33) and O is True. Hence, \eqref{p25eq2} is satisfiable iff 3.33 is satisfiable.
+
+\subsection{(b)}
+Each constraining formula has 3 propositional variables. Therefore, the truth table for each constraining formula has $2^3 = 8$ rows.  The FCNF of a propositional formula has a clause for each row of the truth table that evaluates to False, and each clause has one occurrence of each propositional variable. Hence, each constraining formula is equivalent to a 3CNF formula with at most $8 * 3 = 24$ occurrences of variables.
+
+\subsection{(c)}
+
+Create a propositional variable $X_i$ for each propositional operator in $F$. Then for each propositional variable, create a constraining formula of the form $X_i \iff operand_{i1} \; operator_i \; operator_{i2}$. The operands depend on what the operator acts on in $F$. They could be one of the propositional variables in $F$ or the output of another operator. In the latter case, the operand will be $X_j$ for some $j \ne i$. Next, identify the $X_k$ that does not appear on the right side of any of the constraining formulas. Its value will be equal to $F$ when all of the constraints evaluate to true. Finally, we construct $C(F)$ by "anding" all of the constraints with each other and with $X_k$.
+
+\pagebreak
+
+\section{Problem 26}
+\subsection{(a)}
+(i), (iii)
+
+\subsection{(b)}
+(i), (iii), (iv)
+
+\subsection{(c)}
+(i), (ii), (iv)
+
+\pagebreak
+
+\section{Problem 27}
+ (a), (d)
+
+\pagebreak
+
+\section{Problem 28}
+\subsection{(a)}
+\[
+	(\forall x)(P(x) \implies \neg S(x))
+\]
+\subsection{(b)}
+\[
+	(\forall x)(R(x) \implies S(x))
+\]
+Alternately:
+\[
+	(\nexists x)(R(x) \implies \neg S(x))
+\]
+\subsection{(c)}
+\[
+	(\forall x)(Q(x) \implies P(x))
+\]
+\subsection{(d)}
+\[
+	(\forall x)(Q(x) \implies \neg R(x))
+\]
+Alternatively:
+\[
+	(\nexists x)(Q(x) \implies R(x))
+\]
+\subsection{(e)}
+Part (d) follows logically from parts (a), (b), and (c).
+\begin{proof}
+	\begin{align*}
+		 & (\forall x)(Q(x) \implies P(x))      & \text{ (apply (c))} & \implies \\
+		 & (\forall x)(Q(x) \implies \neg S(x)) & \text{ (apply (a))} & \implies \\
+		 & (\forall x)(Q(x) \implies \neg R(x)) & \text{ (apply (b))}
+	\end{align*}
+\end{proof}
+
+\subsection{(f)}
+Everyone who comes from the 23rd century or likes to eat pizza is a 6.042 TA.
+
+\subsection{(g)}
+If there is someone from the 23rd century who isn't a 6.042 TA, then all monkeys like to eat pizza.
+
+\pagebreak
+
+\section{Problem 29}
+Show that
+\begin{equation}\label{p29eq1}
+	(\forall x \exists y. P(x, y)) \implies \forall z. P(z, z)
+\end{equation}
+is not valid by describing a counter-model.
+
+Let the nonnegative integers be our domain of discourse and
+
+\[
+	P(x, y) \Coloneqq x < y
+\]
+
+P(x, y) is always True since if $x \in mathbb{N}$ then $(x + 1) \in mathbb{N}$ and $x < (x + 1)$.  However, P(Z) is never True since if $z \in mathbb{N}$, $z = z$. It follows that \eqref{p29eq1} is False under this model. Hence, \eqref{p29eq1} is not valid.
+
+\pagebreak
+
+\section{Problem 30}
+Find a counter-model showing that the following is not valid:
+\begin{equation}\label{p30eq1}
+	\exists x.P(x) \implies \forall x.P(x)
+\end{equation}
+
+Let the nonnegative integers be our domain of discourse and
+
+\[
+	P(x) \Coloneqq x = 1
+\]
+
+$1 \in \mathbb{N}$ and $P(1) = True$. However, $2 \in \mathbb{N}$ and $P(2) = False$. It follows that \eqref{p30eq1} is False under this model. Hence, \eqref{p30eq1} is not valid.
+
+\pagebreak
+
+\section{Problem 31}
+Find a counter-model showing that the following is not valid:
+\begin{equation}\label{p31eq1}
+	[\exists x.P(x) \land \exists x.Q(x)] \implies \exists x.[P(x) \land Q(x)]
+\end{equation}
+
+Let the nonnegative integers be our domain of discourse and
+
+\begin{align*}
+	P(x) & = x \ge 10 \\
+	Q(x) & = x < 10
+\end{align*}
+
+$10 \in \mathbb{N}$ and $P(10) = True$. $9 \in \mathbb{N}$ and $Q(9) = True$. However, there is no $x \in \mathbb{N}$ such that both P(x) and Q(x) are True. It follows that \eqref{p31eq1} is False under this model. Hence, \eqref{p31eq1} is valid.
+
+\pagebreak
+
+\section{Problem 32}
+\subsection{(a)}
+valid
+
+\subsection{(b)}
+invalid
+Let the nonnegative integers be our domain of discourse and
+\[
+	Q(x,y) \Coloneqq x < y
+\]
+
+\subsection{(c)}
+valid
+
+\subsection{(d)}
+valid
+
+\pagebreak
+
+\section{Problem 33}
+\subsection{(a)}
+Prove that
+\begin{equation}\label{p33aclaim}
+	(P \implies Q) \lor (Q \implies P)
+\end{equation}
+is valid.
+\begin{proof}
+	The proof is by truth table.
+	\[
+		\begin{array}{|c|c|c c c|}
+			P & Q & (P \implies Q) & \lor       & (Q \implies P) \\
+			\hline
+			T & T & T              & \mathbf{T} & T              \\
+			T & F & F              & \mathbf{T} & T              \\
+			F & T & T              & \mathbf{T} & F              \\
+			F & F & T              & \mathbf{T} & T
+		\end{array}
+	\]
+
+	\eqref{p33aclaim} evaluates to True in all of the rows of its truth table. Hence, \eqref{p33aclaim} is valid.
+\end{proof}
+
+\subsection{(b)}
+This is another fallacious argument that fails to take into account that, unlike conventional implication, there is no causal relationship between hypothesis and conclusion in mathematical implication. Let $F$ be a function and
+\begin{align*}
+	P & \Coloneqq F \text{ is differentiable} \\
+	Q & \Coloneqq F \text{ is not continuous}
+\end{align*}
+
+If F is a discontinuous differential function, then both P and Q are True and the first row of our truth table shows us, unsurprisingly, that \eqref{p33aclaim} is True as well.
+
+If F is a continuous differential function, then P is True but Q is False. The second row of our truth table shows us that $P \implies Q$ is False. However, $Q \implies P$ is True due to the lack of a causal relationship between hypothesis and conclusion in mathematical implication. Therefore, \eqref{p33aclaim} is True.
+
+If F is a discontinuous non-differentiable function, then P is False but Q is True. The third row of our truth table shows us that $Q \implies P$ is False. However, $Q \implies P$ is True due to the lack of a causal relationship between hypothesis and conclusion in mathematical implication. Therefore, \eqref{p33aclaim} is True.
+
+If F is a continuous non-differential function, then both P and Q are false.  However, due to the lack of a causal relationship between hypothesis and conclusion in mathematical implication, $P \implies Q$ and $Q \implies P$ are both True. Therefore, \eqref{p33aclaim} is True.
+
+Our "sound" proof method is, in fact, fallacious due to the lack of a causal relationship between hypothesis and conclusion in mathematical implication. Whether a proposition is True or False tells us nothing about whether its converse is True or False.
+
+\pagebreak
+
+\section{Problem 35}
+
+\subsection{(a)}
+\[
+	\exists x.x^2 = 2
+\]
+
+$\sqrt{2}$ is irrational.
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+False when the domain of discourse is $\mathbb{Q}$.
+
+True when the domain of discourse is $\mathbb{R}$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(b)}
+\[
+	\forall x. \exists y. x^2 = y
+\]
+
+True when the domain of discourse is $\mathbb{N}$.
+
+True when the domain of discourse is $\mathbb{Z}$.
+
+True when the domain of discourse is $\mathbb{Q}$.
+
+True when the domain of discourse is $\mathbb{R}$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(c)}
+\[
+	\forall y. \exists x.x^2 = y
+\]
+
+This is a generalization of part(a).
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+False when the domain of discourse is $\mathbb{Q}$.
+
+False when the domain of discourse is $\mathbb{R}$. We need to consider the case when $y < 0$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(d)}
+\[
+	\forall x \ne 0. \exists y.xy = 1
+\]
+
+For each $x \ne 0$ in a domain of discourse, determine whether $\frac{1}{x}$ is also in said domain of discourse.
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+True when the domain of discourse is $\mathbb{Q}$.
+
+True when the domain of discourse is $\mathbb{R}$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(e)}
+\[
+	\exists x. \exists y.x + 2y = 2 \land 2x + 4y = 5
+\]
+
+If you multiply the left-hand equation by 2 and subtract from the right-hand equation, you get $0 = 1$ which is clearly not True. Therefore, this system of equations doesn't have a solution. Otherwise, one would solve the system of equations and determine which domains of discourse contain the solution.
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+False when the domain of discourse is $\mathbb{Q}$.
+
+False when the domain of discourse is $\mathbb{R}$.
+
+False when the domain of discourse is $\mathbb{C}$.
+
+\pagebreak
+
+\section{Problem 36}
+
+\subsection{(a)}
+\[
+	\exists y.(x = yyy)
+\]
+
+\subsection{(b)}
+\[
+	\text{NO-1S}(x) \land  \exists y.(x = yy)
+\]
+
+\subsection{(c)}
+\[
+	\text{NO-1S}(x) \lor \neg \text{SUBSTRING}(0, x)
+\]
+
+\subsection{(d)}
+\[
+	x = 1 \lor \exists y.(x = 1y1 \land \text{NO-1S}(y))
+\]
+
+\subsection{(e)}
+Prepending a $0$ to $x$ shifts all of the digits of $x$ one place to the right. If $x$ is empty or a string of $0$'s, then x will obviously be a prefix of $0x$. However, if $x$ contains any $1$'s, the first $1$ will be shifted space to the right in $0x$ such that $x$ will not be a prefix of $0x$. Hence, (*) is true only when x is a string of $0$'s.
+
+\pagebreak
+
+\section{Problem 37}
+\subsection{(a)}
+\[
+	Equal(m,n) \Coloneqq A(2n,n,m)
+\]
+\subsection{(b)}
+\[
+	One(n) \Coloneqq M(n,n,n)
+\]
+\subsection{(c)}
+\[
+	M(n, i, x) \land A(x, y, z) \land M(y, m, j) \land M(z, k, k)
+\]
+\subsection{(d)}
+\[
+	Prime(p) \Coloneqq Greater(p,1) \land \forall x \forall y.(M(p, x, y) \implies (One(x) \land Equal(y,p)) \lor (One(y) \land Equal(x,p)))
+\]
+\subsection{(e)}
+\[
+	Two(n) \Coloneqq M(2n,n,n)
+\]
+\subsection{(f)}
+\[
+	Even(n) \Coloneqq \exists x \exists y.(Two(x) \land \neg Zero(y) \land M(n, x, y))
+\]
+\subsection{(g)}
+\[
+	\forall n.(Even(n) \land \neg Two(n) \implies \exists x \exists y.(Prime(x) \land Prime(y) \land A(n,x,y)))
+\]
+\subsection{(h)}
+\[
+	\forall n.(Greater(n, 2) \implies \neg(\exists a \exists b \exists c.(X(a,x,n) \land X(b,y,n) \land X(c,z,n) \land A(c,a,b))))
+\]
+\subsection{(i)}
+\[
+	\forall n \exists p.(Greater(p,n) \land Prime(p) \land \exists q.(Prime(q) \land A(p,q,2)))
+\]
+
+\pagebreak
+
+\section{Problem 38}
+\subsection{(a)}
+\[
+	m | n \Coloneqq \exists k.(k \ne 0 \land km = n)
+\]
+\subsection{(b)}
+\[
+	P(n) \Coloneqq n \ne 0 \land n \ne 1 \land	\nexists k.(k \ne 1 \land k \ne n \land k | n)
+\]
+\subsection{(c)}
+\[
+	n \ne 0 \land (n = 1 \lor \exists p.(P(p) \land \forall k.(P(k) \land k | n \implies k = p)))
+\]
+
+\pagebreak
+
+\section{Problem 39}
+\[
+	(\exists a \exists b \exists c \forall d .(d \ne a \land d \ne b \land d \ne c)) \implies \neg E(a, d)
+\]
+
+
+\end{document}

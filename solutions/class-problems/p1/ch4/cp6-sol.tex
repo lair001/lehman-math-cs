@@ -1,0 +1,132 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{In-Class Problem Solutions for Session 6}
+\author{Samuel Lair}
+\date{September 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+\subsection{(a)}
+Prove that
+\begin{equation}\label{p3aclaim}
+	(P \land \neg Q) \lor (P \land Q) \equiv P
+\end{equation}
+\begin{proof}
+	The proof is by truth table.
+
+	\[
+		\begin{array}{|c|c|c c c|}
+			P          & Q & (P \land \neg Q) & \lor       & (P \land Q) \\
+			\hline
+			\mathbf{T} & T & F                & \mathbf{T} & T           \\
+			\mathbf{T} & F & T                & \mathbf{T} & F           \\
+			\mathbf{F} & T & F                & \mathbf{F} & F           \\
+			\mathbf{F} & F & F                & \mathbf{F} & F
+		\end{array}
+	\]
+
+	The truth table for $(P \land \neg Q) \lor (P \land Q)$ is identical to the truth table for $P$. Hence, \eqref{p3aclaim} must be true.
+\end{proof}
+
+\subsection{(b)}
+Prove that
+\begin{equation}\label{p3bclaim}
+	A = (A - B) \cup (A \cap B)
+\end{equation}
+
+\begin{proof}
+	\begin{align*}
+		 & x \in (A - B) \cup (A \cap B)                           & \iff                                                                                         \\
+		 & x \in (A - B) \lor x \in (A \cap B)                     & \iff                                                                                         \\
+		 & (x \in A \land x \notin B) \lor (x \in A \land x \in B) & \iff                                                                                         \\
+		 & x \in A                                                 & \text{ (apply } \eqref{p3aclaim} \text{ taking } P \Coloneqq & x \in A, Q \Coloneqq x \in B) \\
+	\end{align*}
+
+	Hence, \eqref{p3bclaim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 2}
+
+\subsection{(a)}
+\[
+	(x = \emptyset) \Coloneqq \forall z.(z \notin x)
+\]
+
+\subsection{(b)}
+\[
+	(x = \{y, z\}) \Coloneqq \forall a.(a \in x \iff a \in \{y, z\})
+\]
+
+\subsection{(c)}
+\[
+	(x \subseteq y) \Coloneqq \forall z.(z \in x \implies z \in y)
+\]
+
+
+\subsection{(d)}
+\[
+	(x = y \cup z) \Coloneqq \forall a.(a \in x \iff a \in y \lor a \in z)
+\]
+
+\subsection{(e)}
+\[
+	(x = y - z) \Coloneqq \forall a.(a \in x \iff a \in y \land a \notin z)
+\]
+
+\subsection{(f)}
+\[
+	(x = \text{pow}(y)) \Coloneqq \forall z.(z \in x \iff z \subseteq y)
+\]
+
+\subsection{(g)}
+\[
+	(x = \bigcup_{z \in y} z) \Coloneqq \forall a.(a \in x \iff \exists z \in y.(a \in z))
+\]
+
+\pagebreak
+
+\section{Problem 3}
+
+\subsection{(a)}
+Representing $(a, b)$ by $\{a,b\}$ doesn't work because distinct pairs would be represented by the same set. E.g. $(1,2)$ and $(2,1)$ would both be represented by $\{1,2\}$.
+
+\subsection{(b)}
+Representing $(a, b)$ by $\{a,\{b\}\}$ also doesn't work because distinct pairs would be represented by the same set. E.g. $(\{1\},2)$ and $(\{2\},1)$ would both be represented by $\{\{1\},\{2\}\}$.
+
+\subsection{(c)}
+$pair(a,b)$ uniquely determines $(a,b)$ because this particular combination of a scalar and a set element removes any ambiguity regarding which item comes first. $a$, the first item, appears in both the scalar and set elements. $b$, the second item, only appears in the set element.
+
+\pagebreak
+
+\section{Problem 4}
+The second player still has a winning strategy when $A$ has four elements since the second player can always choose the complement of whatever subset the first player chooses on his/her first turn. Consider the following cases:
+\begin{enumerate}
+	\item Player 1 chooses a subset containing 1 element of $A$ on his/her first turn.
+	\item Player 1 chooses a subset containing 2 elements of $A$ on his/her first turn.
+	\item Player 1 chooses a subset containing 3 elements of $A$ on his/her first turn.
+\end{enumerate}
+
+\textbf{Case 1:}
+Player 2 chooses the subset containing the remaining 3 elements of $A$ on his/her first turn. Player 1 has no legal moves on his/her second turn so Player 2 wins.
+
+\textbf{Case 2:}
+Player 2 chooses the subset containing the remaining 2 elements of $A$ on his/her first turn. Player 1 has no legal moves on his/her second turn so Player 2 wins.
+
+\textbf{Case 3:}
+Player 2 chooses the subset containing the remaining element of $A$ on his/her first turn. Player 1 has no legal moves on his/her second turn so Player 2 wins.
+
+\pagebreak
+
+\end{document}

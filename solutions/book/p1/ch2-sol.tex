@@ -1,0 +1,575 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{Chapter 2 Problem Solutions}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+This problem is awkwardly formulated as filling in the blanks of a proof. I'm going to simply reproduce the entire proof with the blanks filled in.
+
+Prove that every amount of postage that can assembled using only 10 cent and 15 stamps is divisible by 5.
+\begin{proof}
+	Let the notation $``j | k"$ indicate that integer $j$ is a divisor of integer $k$, and let $S(n)$ mean that exactly $n$ cents postage can be assembled using only 10 and 15 cent stamps. Then we need to prove:
+	\begin{equation}\label{eq:one}
+		S(n) \text{ IMPLIES } 5 \mid n \text{, for all nonnegative integers }n
+	\end{equation}
+	Let $C$ be the set of \textit{counterexamples} to \eqref{eq:one}, namely
+	\[
+		C \Coloneqq \Set{n | S(n) \text{ and NOT}(5 \mid n)}
+	\]
+	Assume for the purpose of obtaining a contradiction that $C$ is nonempty. Then by the WOP, there is a smallest $m \in C$. This m must be positive because \eqref{eq:one} holds for $n = 0$.
+
+	But if $S(m)$ holds and $m$ is positive, then $S(m - 10)$ or $S(m-15)$ must hold because there exist nonnegative integers $i$ and $j$ such that $m = 10i + 15j$ and at least one of $i$, $j$ is greater than zero. If $i > 0$, then $S(m - 10)$ must hold. If $j > 0$, then $S(m - 15)$ must hold.
+
+	So suppose $S(m - 10)$ holds. Then $5 \mid (m - 10)$ because $m - 10 = 10i + 15j$ for nonnegative integers $i$ and $j$ and both $5 \mid 10$ and $5 \mid 15$ are true.
+
+	But if $5 \mid (m - 10)$, then $5 \mid m$ because $m = 10(i+1) + 15j$, contradicting the fact that $m$ is a counterexample.
+
+	Next, if $S(m - 15)$ holds, we arrive at a contradiction in the same way.
+
+	Since we get a contradiction in both cases, we conclude that $C$ is empty, which proves that \eqref{eq:one} holds.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 2} At the very least, the conclusion in line 12 is wrong. Besides $F(0) = 0$, there is a second Fibonacci number whose value does not depend on two prior Fibonacci numbers: $F(1) = 1$. The proof should have considered $F(1) = 1$ after step 6, determined that $m = 1$ and concluded that $EF(n)$ does not hold for all $n \in \mathbb{N}$.
+
+\pagebreak
+
+\section{Problem 3}
+The WOP does not apply to the positive rational numbers. To see this, simply construct an infinite subset of the positive rational numbers that asymptotically converges to zero. E.g.
+\[
+	S \Coloneqq \Set{\frac{1}{10}, \frac{1}{100}, \frac{1}{1000}, ... }
+\]
+Elements of $S$ can be generated indefinitely by multiplying the previous element by $\frac{1}{10}$ and each new element is smaller than the element preceding it. Therefore, $S$ is a subset of the positive rational numbers that does not have a minimum element.
+
+With this in mind, the proof in question is incorrect when it makes the claim: ``So there must be a a smallest rational $q_0 \in C$." Everything past this false claim is ``bogus".
+\pagebreak
+
+\section{Problem 4}
+Prove that
+\begin{equation}\label{eq:two}
+	\sum_{k=0}^n k^2 = \frac{n(n+1)(2n+1)}{6}
+\end{equation}
+for all nonnegative integers n.
+\begin{proof}
+	We use proof by contradiction. Suppose that the claim is false. Then, some nonnegative integers serve as \textit{counterexamples} to it. Let's collect them in a set:
+	\[
+		C \Coloneqq \Set{n \in \mathbb{N} | \sum_{k=0}^n k^2 \neq \frac{n(n+1)(2n+1)}{6}}
+	\]
+	By the WOP, $C$ has a minimum element $c$. I.e. \eqref{eq:two} is false for $n = c$ but true for all nonnegative integers $n < c$. Since \eqref{eq:two} is true for $n = 0$, $c > 0$.  Therefore, $c - 1$ is a nonnegative integer for which \eqref{eq:two} holds:
+	\[
+		\sum_{k=0}^{c-1} k^2 = \frac{(c-1)(c-1+1)(2(c-1)+1)}{6} = \frac{c(c-1)(2c-1)}{6}
+	\]
+	But if we add $c^2$ to both sides of this equation, we find:
+	\begin{align*}
+		\sum_{k=0}^c k^2 = & \frac{c(c-1)(2c-1)}{6} + c^2 = \frac{(c^2-c)(2c-1)+6c^2}{6} \\ =& \frac{2c^3 - c^2 - 2c^2 + c + 6c^2}{6} = \frac{c(2c^2+3c+1)}{6} = \frac{c(c+1)(2c+1)}{6}
+	\end{align*}
+	Therefore, we've reached a contradiction where \eqref{eq:two} holds for $c$. Hence, $C$ is empty and the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 5}
+Prove that
+\begin{equation}\label{p5claim}
+	\nexists \; a, b, c \in \mathbb{Z^+} \text{ such that } 4a^3 + 2b^3 = c^3
+\end{equation}
+$\mathbb{Z^+}$ denotes the positive integers, which are a subset of $\mathbb{N}$.
+
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p5claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. Then by the WOP, there is a tuple $(a_0, b_0, c_0)$ among the elements of $C$ such that $a_0$ is the least value of $a$ of all such tuples in $C$. Since $4a_0^3 + 2b_0^3 = c_0^3$, $c_0^3$ is a multiple of $3$. By the $\textit{Fundamental Theorem of Arithmetic}$, $c_0$ is also a multiple of $2$. I.e., $\exists \; k \in \mathbb{Z^+}$ such that $c_0 = 2k$. Then:
+	\[
+		2b_0^3 = 8k^3 - 4a_0^3 \implies b_0^3 = 4k^3 - 2a_0^3
+	\]
+	Therefore, $b_0^3$ is a multiple of 2. By the $\textit{Fundamental Theorem of Arithmetic}$, $b_0$ is also a multiple of $2$. I.e., $\exists \; j \in \mathbb{Z^+}$ such that $b_0 = 2j$. Continuing one more time:
+	\[
+		4a_0^3 = 8k^3 - 16j^3 \implies a_0^3 = 2k^3 - 4j^3
+	\]
+	Therefore, $a_0^3$ is a multiple of 2. By the $\textit{Fundamental Theorem of Arithmetic}$, $a_0$ is also a multiple of $2$. I.e., $\exists \; i \in \mathbb{Z^+}$ such that $a_0 = 2i$. But then:
+	\[
+		32i^3 + 16j^3 = 8k^3 \implies 4i^3 + 2j^2 = k^3
+	\]
+	Therefore, $(i, j, k) \in C$ and we have the contradiction that $i < a_0$ since $a_0 = 2i$. Hence, $C$ must be empty, implying that \eqref{p5claim} must be true.
+
+\end{proof}
+
+\pagebreak
+
+\section{Problem 6}
+This problem is actually about the unsigned binary representation of unsigned integers. Namely, we asked to prove that $m + 1$ unsigned bits can represent any nonnegative integer less than or equal to $2^{m + 1} - 1$. Let's restate the claim in a more straightforward manner.
+
+Given $S \Coloneqq \Set{0, 1}$ and $n \in \mathbb{N}$ such that $n < 2^{m + 1}$ for some $m \in \mathbb{N}$, prove that:
+\begin{equation}\label{p6claim}
+	\exists \; a_0, a_1, ..., a_m \in S \text{ such that } n = a_0 2^0 + a_1 2^1 + ... + a_m 2^m
+\end{equation}
+
+\begin{proof}
+	The proof is by case analysis. Consider the following cases:
+	\begin{enumerate}
+		\item $m = 0$
+		\item $m > 0$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	We need to consider nonnegative integers less than $2^{0 + 1} = 2$. Fortunately, there are only two such nonnegative integers: 0 and 1. Consider that:
+	\[
+		0 = 0 \cdot 2^0
+	\]
+	\[
+		1 = 1 \cdot 2^0
+	\]
+	\eqref{p6claim} holds for Case 1.
+
+	\textbf{Case 2:}
+	The proof for this case is by the WOP. Let $C$ be the set of counterexamples to \eqref{p6claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. By the WOP, there is a least integer $q \in C$. Since $q$ is the least counterexample, \eqref{p6claim} must hold for $q - 1$:
+	\[
+		q - 1 = a_0 2^0 + a_1 2^1 + ... + a_m 2^m
+	\]
+	\[
+		q = a_0 2^0 + a_1 2^1 + ... + a_m 2^m + 1
+	\]
+
+	Let us now consider two subcases:
+	\begin{enumerate}
+		\item $q - 1 < 2^{m + 1} - 1$
+		\item $q - 1 = 2^{m + 1} - 1$
+	\end{enumerate}
+
+	\textbf{Case 2.1:}
+	Since $q - 1 < 2^{m + 1} - 1$, at least one of the coefficients $a_0, ..., a_m$ equals 0. By the WOP, there exists a least index i such that $a_i = 0$. Then:
+	\[
+		q = q - 1 + 1 = 0 \cdot 2^0 + 0 \cdot 2^1 + ... + 1 \cdot 2^i + a_{i+1} \cdot 2^{i+1} + ... + a_m \cdot 2^m
+	\]
+	This leads us to the contradiction that \eqref{p6claim} holds for q. Therefore, $C$ is empty and \eqref{p6claim} holds in this subcase.
+
+	\textbf{Case 2.2:}
+	In this case, $q = q - 1 + 1 = 2^{m+1} - 1 + 1 = 2^{m + 1}$. Therefore, we have a contradiction where $q$ isn't a counterexample since \eqref{p6claim} only makes a claim for $n < 2^{m + 1}$. Therefore, $C$ is empty and \eqref{p6claim} holds in this subcase.
+
+	$C$ is empty and \eqref{p6claim} holds in Subcases 2.1 and 2.2. Therefore, $C$ is empty and \eqref{p6claim} holds in Case 2.
+
+	\eqref{p6claim} holds for Cases 1 and 2. Therefore, \eqref{p6claim} must be true.
+
+\end{proof}
+
+\pagebreak
+
+\section{Problem 7}
+Prove that any integer greater than or equal to 8 can be represented as the sum of nonnegative integer multiples of 3 and 5.
+\begin{proof}
+	Our claim can be restated as follows:
+	\begin{equation}\label{p7claim}
+		\forall \; n \in \mathbb{N}, \exists \; i, j \in \mathbb{N} \text{ such that } n + 8 = 3i + 5j
+	\end{equation}
+
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p7claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. By the WOP, there is a least nonnegative integer $m \in C$. Consider the following:
+	\[
+		0 + 8 = 8 = 3 + 5
+	\]
+	\[
+		1 + 8 = 9 = 3 \cdot 3
+	\]
+	\[
+		2 + 8 = 10 = 2 \cdot 5
+	\]
+	Therefore, $m \geq 3$, which ensures that $(m - 3) \in \mathbb{N}$. Since m is the minimum counterexample, \eqref{p7claim} must hold for $m - 3$. I.e.
+	\[
+		\exists \; i, j \in \mathbb{N} \text{ such that } m - 3 + 8 = 3i + 5j
+	\]
+	But then $m + 8 = 3(i+1) + 5j \implies m \notin C$, a contradiction. Therefore, $C$ is empty. Hence, \eqref{p7claim}, which is equivalent to our claim, is true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 8}
+Prove that any integer greater than or equal to
+50 can be represented as the sum of nonnegative integer multiples of 7, 11, and 13.
+
+\begin{proof}
+	Our claim can be restated as follows:
+	\begin{equation}\label{p8claim}
+		\forall \; n \in \mathbb{N}, \exists \; i, j, k \in \mathbb{N} \text{ such that } n + 50 = 7i + 11j + 13k
+	\end{equation}
+
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p8claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. By the WOP, there is a least nonnegative integer $m \in C$. Consider the following:
+	\[
+		0 + 50 = 50 = 1 \cdot 11 + 3 \cdot 13
+	\]
+	\[
+		1 + 50 = 51 = 2 \cdot 7 + 1 \cdot 11 + 2 \cdot 13
+	\]
+	\[
+		2 + 50 = 52 = 4 \cdot 13
+	\]
+	\[
+		3 + 50 = 53 = 2 \cdot 7 + 3 \cdot 13
+	\]
+	\[
+		4 + 50 = 54 = 4 \cdot 7 + 2 \cdot 13
+	\]
+	\[
+		5 + 50 = 55 = 5 \cdot 11
+	\]
+	\[
+		6 + 50 = 56 = 8 \cdot 7
+	\]
+	Therefore, $m \ge 7$, which ensures that $(m - 7) \in \mathbb{N}$. Since $m$ is the minimum counterexample, \eqref{p8claim} must hold for $m - 7$. I.e.
+	\[
+		\exists \; i, j, k \in \mathbb{N} \text{ such that } m - 7 + 50 = 7i + 11j + 13k
+	\]
+	But then $m + 50 = 7(i+1) + 11j + 13k \implies m \notin C$, a contradiction. Therefore, $C$ is empty and \eqref{p8claim}, which is equivalent to our claim, must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 9}
+Prove that
+\begin{equation}\label{p9claim}
+	\nexists \; a, b, c, d \in \mathbb{Z^+} \text{ such that } 8a^4 + 4b^4 + 2c^4 = d^4.
+\end{equation}
+
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p9claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. Then by the WOP, there is a tuple $(a_0, b_0, c_0, d_0)$ among the elements of $C$ such that $a_0$ is the least value of $a$ of all such tuples in $C$. Since $8a_0^4 + 4a_0^4 + 2c_0^4 = d_0^4$, $d_0^4$ is a multiple of $2$. By the \textit{Fundamental Theorem of Arithmetic}, $d_0$ is also a multiple of $2$. I.e. $\exists \; k \in \mathbb{Z^+}$ such that $d_0 = 2k$. Then:
+	\[
+		c_0^4 = 8k^4 - 2b_0^4 - 4a_0^4
+	\]
+	Therefore, $c_0^4$ is a multiple of $2$. By the \textit{Fundamental Theorem of Arithmetic}, $c_0$ is also a multiple of $2$. I.e. $\exists \; j \in \mathbb{Z^+}$ such that $c_0 = 2j$. Then:
+	\[
+		b_0^4 = 4k^4 - 8j^4 - 2a_0^4
+	\]
+	Therefore, $b_0^4$ is a multiple of $2$. By the \textit{Fundamental Theorem of Arithmetic}, $b_0$ is also a multiple of $2$. I.e. $\exists \; i \in \mathbb{Z^+}$ such that $b_0 = 2i$. Then:
+	\[
+		a_0^4 = 2k^4 - 4j^4 - 8i^4.
+	\]
+	Therefore, $a_0^4$ is a multiple of $2$. By the \textit{Fundamental Theorem of Arithmetic}, $a_0$ is also a multiple of $2$. I.e. $\exists \; h \in \mathbb{Z^+}$ such that $a_0 = 2h$. But then:
+	\[
+		128h^4 + 64i^4 + 32j^4 = 16k^4 \implies 8h^4 + 4i^4 + 2^4 = k^4
+	\]
+	Therefore, $(h, i, j, k) \in C$. However, this is contradiction since $a_0 = 2h \implies h < a_0$. Hence, $C$ is empty and \eqref{p9claim} must be true.
+
+\end{proof}
+
+\pagebreak
+
+\section{Problem 10}
+Prove that
+\begin{equation}\label{p10claim}
+	n \leq 3^{\frac{n}{3}} \; \forall \; n \in \mathbb{N}
+\end{equation}
+\begin{proof}
+	The proof is by case analysis. Consider the following cases:
+	\begin{enumerate}
+		\item $n = 0$
+		\item $n = 1$
+		\item $n = 2$
+		\item $n = 3$
+		\item $n = 4$
+		\item $n \geq 5$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	\[
+		3^{\frac{0}{3}} = 3^0 = 1 > 0
+	\]
+	\eqref{p10claim} holds for Case 1.
+
+	\textbf{Case 2:}
+	\[
+		3^{\frac{1}{3}} = 3^{\frac{1}{3}} > 1.4422 > 1
+	\]
+	\eqref{p10claim} holds for Case 2.
+
+	\textbf{Case 3:}
+	\[
+		3^{\frac{2}{3}} = 3^{\frac{2}{3}} > 2.0800 > 2
+	\]
+	\eqref{p10claim} holds for Case 3.
+
+	\textbf{Case 4:}
+	\[
+		3^{\frac{3}{3}} = 3
+	\]
+	\eqref{p10claim} holds for Case 4.
+
+	\textbf{Case 5:}
+	\[
+		3^{\frac{4}{3}} > 4.3267 > 4
+	\]
+	\eqref{p10claim} holds for Case 5
+
+	\textbf{Case 6:}
+	The proof for this case is by the WOP. Let $C$ be the set of counterexamples to \eqref{p10claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. By the WOP, there is a least $m \in C$. Since \eqref{p10claim} holds in Cases 1-5, we know that $m \geq 5$ and $m - 4 \in \mathbb{N}$. Since $m$ is the least element in $C$, \eqref{p10claim} must hold for $m - 1$:
+	\[
+		m - 1 \leq 3^{\frac{m - 1}{3}}
+	\]
+	\[
+		(m - 1)^3 \leq 3^{m-1}
+	\]
+	\[
+		3 \cdot (m - 1)^3 \leq 3^m
+	\]
+	\[
+		\text{Since } m \in C, m > 3^{\frac{m}{3}} \implies 3^m < m^3
+	\]
+	\[
+		3 \cdot (m - 1)^3 \leq 3^m < m^3
+	\]
+	\[
+		\frac{(m - 1)^3}{m^3} < \frac{1}{3}
+	\]
+	\[
+		\frac{m - 1}{m} < \frac{1}{3^{\frac{1}{3}}}
+	\]
+	\[
+		1 - \frac{1}{m} < \left(\frac{1}{3}\right)^{\frac{1}{3}}
+	\]
+	\[
+		\frac{1}{m} > 1 - \left(\frac{1}{3}\right)^{\frac{1}{3}}
+	\]
+	\[
+		m < \frac{1}{1 - \left(\frac{1}{3}\right)^{\frac{1}{3}}} < 3.2612
+	\]
+	This is a contradiction since we established by Cases 1-5 that $m \ge 5$. Therefore, $C$ is empty and \eqref{p10claim} holds for Case 6.
+
+	\eqref{p10claim} holds for Cases 1-6. Therefore, \eqref{p10claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 11}
+We will denote \textit{winning configurations} as lists of the form $[a, b, c, ...]$ where $a$ represents a $2 \times 2$ piece, $b$ represents a $1 \times 2$ piece, and $c$ represents a $2 \times 1$ piece. The ordering of the list is determined by scanning each row of the board from left to right.
+
+\subsection{(a)}
+For $n = 1$, the only \textit{winning configuration} is $[c]$ since the $2 \times 1$ piece is the only piece that will fit on a $2 \times 1$ board and it completely covers the board. Therefore, $T_1 = 1$.
+
+For $n = 2$, the \textit{winning configurations} are $[a]$, $[b, b]$, and $[c, c]$. Therefore, $T_2 = 3$.
+
+For $n = 3$, the \textit{winning configurations} are $[a, c]$, $[c, a]$, $[c, c, c]$, $[b, b, c]$, and $[c, b, b]$. Therefore, $T_3 = 5$.
+
+\subsection{(b)}
+From the very limited data we have in part (a), it appears that:
+\begin{equation}\label{p11recurrence}
+	T_n = T_{n - 1} + 2 \cdot T_{n - 2}
+\end{equation}
+
+\subsection{(c)}
+Prove that the number of \textit{winning configurations} $T_n$ on a $2 \times n$ Mini-Tetris board is:
+\begin{equation}\label{p11claim}
+	T_n = \frac{2^{n + 1} + (-1)^n}{3} \text{ where } n \in \mathbb{Z^+}
+\end{equation}
+
+\begin{proof}
+	The proof is by case analysis. Consider the following cases:
+	\begin{enumerate}
+		\item $n = 1$
+		\item $n = 2$
+		\item $n = 3$
+		\item $n \ge 4$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	\[
+		\frac{2^{1 + 1} + (-1)^1}{3} = \frac{2^2 - 1}{3} = \frac{3}{3} = 1
+	\]
+	\eqref{p11claim} holds for Case 1.
+
+	\textbf{Case 2:}
+	\[
+		\frac{2^{2 + 1} + (-1)^2}{3} = \frac{2^3 + 1}{3} = \frac{9}{3} = 3
+	\]
+	\eqref{p11claim} holds for Case 2.
+
+	\textbf{Case 3:}
+	\[
+		\frac{2^{3 + 1} + (-1)^3}{3} = \frac{2^4 - 1}{3} = \frac{15}{3} = 5
+	\]
+	\eqref{p11claim} holds for Case 3.
+
+	\textbf{Case 4:}
+	The proof for this case is by the WOP. Let $C$ be the set of counterexamples to \eqref{p11claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. By the WOP, there is a least $m \in C$. From Cases 1-3, we know that $m \geq 4$ and $(m - 3) \in \mathbb{Z^+}$. Since $m$ is the least element of $C$, \eqref{p11claim} must hold for $m - 1$ and $m - 2$. From \eqref{p11recurrence}, we find that:
+	\[
+		T_m = \frac{2^m + (-1)^{m - 1}}{3} + 2 \cdot \frac{2^{m-1} + (-1)^{m-2}}{3}
+	\]
+	\[
+		T_m = \frac{2^m + 2^m + (-1)^{m - 1} + 2 \cdot (-1)^{m-2}}{3}
+	\]
+	\[
+		T_m = \frac{2^{m + 1} + (-1)^{m - 2}}{3}
+	\]
+	\[
+		T_m = \frac{2^{m + 1} + (-1)^m}{3}
+	\]
+	Therefore, we have the contradiction that \eqref{p11claim} holds for m after all! $C$ must be empty and \eqref{p11claim} holds for Case 4.
+
+	\eqref{p11claim} holds for Cases 1-4. Hence, \eqref{p11claim} must be true.
+
+\end{proof}
+
+\pagebreak
+
+\section{Problem 15}
+\subsection{(a)}
+The set of counterexamples to (2.8) are a subset of $\mathbb{N}$. Therefore, by the WOP, there must a least counterexample $m$.
+
+\subsection{(b)}
+Consider the following:
+\[
+	\sum_{i=0}^{1-1} (2i + 1) = 2 \cdot 0 + 1 = 1 = 1^2
+\]
+Therefore, (2.8) holds for $n = 1$. Since (2.8) is limited to $n \in \mathbb{Z^+}$, it follows that $m \ge 2$.
+
+\subsection{(c)}
+Since $m \ge 2$, $(m - 1) \in \mathbb{Z^+}$. Furthermore, since $m$ is the least counterexample, (2.8) holds for $m - 1$. Also, consider that:
+\[
+	\sum_{i=0}^{n-1} (2i + 1) = \sum_{i=1}^{n} (2(i-1)+1)
+\]
+Hence, (2.9) must hold.
+
+\subsection{(d)}
+We should add $2(m - 1) + 1$
+
+\subsection{(e)}
+Adding $2(m - 1) + 1$ to both sides of (2.9), we find:
+\[
+	\sum_{i=1}^m (2(i-1)+1) = (m-1)^2 + 2(m-1) + 1 = m^2 - 2m + 1 + 2m - 2 + 1 = m^2
+\]
+Therefore, we've reached a contradiction where (2.8) holds for $m$. The set of counterexamples must be empty and (2.8) must hold for all $n \in \mathbb{Z^+}$.
+
+\pagebreak
+
+\section{Problem 16}
+Prove that
+\begin{equation}\label{p16claim}
+	\sum_{i=1}^n 2i = n(n+1) \; \forall \; n \in \mathbb{Z^+}
+\end{equation}
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p16claim}. We will prove by contradiction that $C$ is empty. Suppose $C$ is not empty. By the WOP, there is a least counterexample $m \in C$. Observe that \eqref{p16claim} holds for n = 1:
+	\[
+		\sum_{i=1}^1 2i = 2 = 1(1+1)
+	\]
+	Therefore, $m \ge 2$ and $(m - 1) \in \mathbb{Z^+}$. Since $m$ is the minimum counterexample, \eqref{p16claim} must hold for $m - 1$:
+	\begin{equation}\label{p16mm1}
+		\sum_{i=1}^{m-1} 2i = (m-1)(m-1+1) = m(m-1)
+	\end{equation}
+	Adding 2m to both sides of \eqref{p16mm1}, we find:
+	\[
+		\sum_{i=1}^m 2i = m(m-1) + 2m = m^2 -m + 2m = m^2 + m = m(m+1).
+	\]
+	We've reached a contradiction where \eqref{p16claim} holds for $m$. Hence, $C$ is empty and \eqref{p16claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 17}
+Prove that
+\begin{equation}\label{p17claim}
+	\sum_{i=0}^n i^3 = \left( \frac{n(n+1)}{2} \right)^2 \forall n \in \mathbb{N}
+\end{equation}
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of counterexamples to \eqref{p17claim}. We will prove by contradiction that $C$ is empty. Suppose $C$ is not empty. By the WOP, there is a least counterexample $m \in C$. Observe that \eqref{p17claim} holds for $n \in \{0, 1, 2\}$:
+	\begin{align*}
+		 & \left( \frac{0(0+1)}{2} \right)^2 = 0 = 0^3 = \sum_{i=0}^0 i^3                   \\
+		 & \left( \frac{1(1+1)}{2} \right)^2 = 1^2 = 1 = 0^3 + 1^3 = \sum_{i=0}^1 i^3       \\
+		 & \left( \frac{2(2+1)}{2} \right)^2 = 3^2 = 9 = 0^3 + 1^3 + 2^3 = \sum_{i=0}^2 i^3
+	\end{align*}
+	Therefore, $m \ge 2$ and $(m - 1) \in \mathbb{N}$. Since $m$ is the least counterexample, \eqref{p17claim} must hold for $m - 1$:
+	\begin{equation}\label{p17mm1}
+		\sum_{i=0}^{m-1} i^3 = \left( \frac{(m-1)(m-1+1)}{2} \right)^2 = \left( \frac{m(m-1)}{2} \right)^2
+	\end{equation}
+	Adding $m^3$ to both sides of \eqref{p17mm1}, we find:
+	\begin{align*}
+		\sum_{i=0}^m i^3 & = \left( \frac{m(m-1)}{2} \right)^2 + m^3 = \frac{m^4 - 2m^3 + m^2 + 4m^3}{4} = \frac{m^4 + 2m^3 + m^2}{4} \\ &= \left( \frac{m(m+1)}{2} \right)^2
+	\end{align*}
+	We've reached a contradiction where \eqref{p17claim} holds for $m$. Hence, $C$ is empty and \eqref{p17claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 21}
+
+\subsection{(a)}
+Observe that:
+\[
+	S \Coloneqq \Set{n \in \mathbb{Z} | n \geq -\sqrt{2}} = \Set{n \in \mathbb{Z} | n \geq -1}
+\]
+It follows from Theorem 2.4.1 on page 33 of the book that $S$ is well ordered.
+
+\subsection{(b)}
+Let
+\[
+	S \Coloneqq \Set{r \in mathbb{R} | r \geq \sqrt{2}}
+\]
+\[
+	T \Coloneqq \Set{r \in \mathbb{R} | r = \sqrt{2} + \frac{1}{n} \; \forall \; n \in \mathbb{Z^+}}
+\]
+S is not well ordered. T is a subset of S that has no minimum element.
+
+\subsection{(c)}
+Let
+\[
+	S \Coloneqq \Set{q \in \mathbb{Q} | q = \frac{1}{n} \; \forall \; n \in \mathbb{Z^+}}
+\]
+$S$ in not well ordered since it does not have a minimum element.
+
+\subsection{(d)}
+$G$ is well ordered since there is an upper bound of $10^{100}$ on the denominator $n$. I.e. every subset $S$ of $G$ has a one-to-one mapping to a subset of $\mathbb{N}$ obtained by multiplying each element of $S$ by $10^{100}!$.
+
+\subsection{(e)}
+$\mathbb{F}$ is discussed in section 2.4.1 of the book where it is established to be well ordered. The least element of a subset of $\mathbb{F}$ is the element with the smallest numerator.  Such a smallest numerator is guaranteed to exist by the WOP since $n \in \mathbb{N}$.
+
+\subsection{(f)}
+Let
+\begin{align*}
+	S \Coloneqq & 1, \frac{3}{4}, \frac{2}{3}, \frac{1}{2}, \frac{0}{1} \\
+	T \Coloneqq & 1, \frac{48}{49}, ..., \frac{1}{2}, \frac{0}{1}       \\
+	U \Coloneqq & 1, \frac{498}{499}, ..., \frac{1}{2}, \frac{0}{1}
+\end{align*}
+$S$ is a length 5 decreasing sequence of elements of $W$ starting with 1. $T$ is a length 50 decreasing sequence of elements of $W$ starting with 1. $U$ is a length 500 decreasing sequence of elements of $W$ starting with 1.
+
+\pagebreak
+
+\section{Problem 22}
+Prove that every finite, a nonempty set of real numbers has a minimum element.
+\begin{proof}
+	The proof is by the WOP. Let $C$ be the set of sizes of sets of real numbers that are counterexamples to our claim. I.e. $n \in C \iff \exists T \subset \mathbb{R}$ such that $T$ is a counterexample to our claim and $T$ has exactly $n$ elements.  We will prove by contradiction that $C$ is empty.
+
+	Suppose $C$ is not empty. By the WOP, $C$ has a least element $m$. Our claim obviously holds for $n = 1$ since the minimum element of a size 1 set of real numbers is its sole element. Therefore, $m > 1$ and $(m - 1) \in \mathbb{Z^+}$.
+
+	Since $m$ is the least element of $C$, our claim must hold for $m - 1$.  However, any set $S$ of size $m$ contains all of the elements of a set $U$ of size $m - 1$ plus an additional element $r_m$. Let $r_0$ be the minimum element of the $U$.  Then the minimum element of $S$ must be the minimum of $r_m$ and $r_0$. This is a contradiction. Hence, $C$ is empty and our claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 23}
+Prove that a set $R$ of real numbers is well ordered iff there is no finite decreasing sequence of numbers in $R$. In other words, there is no set $T$ of numbers $r_i \in R$ such that
+\begin{equation}\label{p23decreasing}
+	r_0 > r_1 > r_2 > ... > r_n > r_{n+1} > ...
+\end{equation}
+
+\begin{proof}
+	Since we have an iff claim, there are two parts of the claim we must prove:
+	\begin{enumerate}
+		\item If a set $R$ of real numbers is well ordered then there is no infinite decreasing sequence $S$ of numbers in $R$.
+		\item If there is no infinite decreasing sequence $S$ of numbers in a set $R$ of real numbers, then $R$ is well ordered.
+	\end{enumerate}
+
+	\textbf{Part 1:}
+	The proof is by contradiction. Suppose $R$ is well ordered but $S$ does exist. Then the corresponding set $T$ would be a subset of $R$. However, $T$ does not have a minimum element since $r_{n+1} < r_n \; \forall \; r_n \in T$.  Therefore, $R$ is not well ordered, a contradiction. Hence, Part 1 of the claim must be true.
+
+	\textbf{Part 2:}
+	The proof is by contradiction. Suppose $S$ does not exist but $R$ is not well ordered. Then $R$ has a subset $T$ that does not have a minimum a minimum element. But then $S$ exists after all since we can construct it from the elements of $T$. This is a contradiction. Hence, Part 2 of the claim must be true.
+
+	Parts 1 and 2 of the claim are true. Hence, the claim must be true.
+\end{proof}
+
+\end{document}

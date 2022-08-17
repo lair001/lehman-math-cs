@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{In-Class Problem Solutions for Session 4}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+
+Prove by truth table that:
+\begin{equation}\label{p14claim}
+	(P \lor (Q \land R)) \equiv ((P \lor Q) \land (P \lor R))
+\end{equation}
+
+\begin{proof}
+	\[
+		\begin{array}{|c|c|c|c c|c c c|}
+			P & Q & R & (P \; \lor    & (Q \land R)) & ((P \lor Q) & \land      & (P \lor R)) \\
+			\hline
+			T & T & T & \; \mathbf{T} & T            & T           & \mathbf{T} & T           \\
+			T & T & F & \; \mathbf{T} & F            & T           & \mathbf{T} & T           \\
+			T & F & T & \; \mathbf{T} & F            & T           & \mathbf{T} & T           \\
+			T & F & F & \; \mathbf{T} & F            & T           & \mathbf{T} & T           \\
+			F & T & T & \; \mathbf{T} & T            & T           & \mathbf{T} & T           \\
+			F & T & F & \; \mathbf{F} & F            & T           & \mathbf{F} & F           \\
+			F & F & T & \; \mathbf{F} & F            & F           & \mathbf{F} & T           \\
+			F & F & F & \; \mathbf{F} & F            & F           & \mathbf{F} & F
+		\end{array}
+	\]
+
+	The truth table for $(P \lor (Q \land R))$ is identical to the truth table for $((P \lor Q) \land (P \lor R))$. Hence, \eqref{p14claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 2}
+\subsection{(a)}
+The specification is described by the following system of propositional formulas:
+\begin{equation}
+	\label{p17e1}
+	\neg L \implies Q
+\end{equation}
+\begin{equation}
+	\label{p17e2}
+	\neg L \implies B
+\end{equation}
+\begin{equation}
+	\label{p17e3}
+	\neg L \iff N
+\end{equation}
+\begin{equation}
+	\label{p17e4}
+	\neg Q \implies B
+\end{equation}
+\begin{equation}
+	\label{p17e5}
+	\neg B
+\end{equation}
+\subsection{(b)}
+We will denote a truth assignment for the specification as a tuple (L, Q, B, N).
+
+In order to satisfy this specification, all five equations in our system of equations must evaluate to T:
+
+\begin{align*}
+	(\eqref{p17e5} = T) \implies                 & (B = F)             \\
+	((B = F) \land (\eqref{p17e4} = T)) \implies & (Q = T)             \\
+	((B = F) \land (\eqref{p17e2} = T)) \implies & (L = T)             \\
+	((L = T) \land (\eqref{p17e3} = T)) \implies & (N = F)             \\
+	((L = T) \land (Q = T)) \implies             & (\eqref{p17e1} = T)
+\end{align*}
+
+Therefore, the truth assignment (T, T, F, F) satisfies the specification. Hence, the specification is satisfiable.
+
+\subsection{(c)}
+The truth assignment in part(b) is the only one that satisfies the specification. (\eqref{p17e5} = T) requires that $B = F$. This starts a chain of implications via the other equations that locks the rest of the propositional variables to a particular value. See the reasoning presented in part(b) for further details.
+
+\pagebreak
+
+\section{Problem 3}
+\subsection{(a)}
+\begin{align*}
+	c_0 = \;     & b                     \\
+	s_0 = \;     & a_0 \oplus c_0        \\
+	c_1 = \;     & a_0 \land c_0         \\
+	s_1 = \;     & a_1 \oplus c_1        \\
+	c_2 = \;     & a_1 \land c_1         \\
+	             & ...                   \\
+	c_i = \;     & a_{i-1} \land c_{i-1} \\
+	s_i = \;     & a_i \oplus c_1        \\
+	c_{i+1} = \; & a_i \land c_i         \\
+	             & ...                   \\
+	c_{n} = \;   & a_{n-1} \land c_{n-1} \\
+	s_n = \;     & a_n \oplus c_n        \\
+	c_{n+1} = \; & a_{n+1} \land c_{n+1} \\
+	c = \;       & c_{n+1}
+\end{align*}
+I.e. $s_i = a_i \oplus c_i$ for $0 \leq i \leq n$, $c_0 = b$, and $c_i = a_{i-1} \land c_{i-1}$ for $1 \leq i \leq n+1$.
+
+\subsection{(b)}
+Notice how after the zeroth bit, we are chaining together 1-bit full adders. We could easily turn this into a $n+1$ bit full adder by introducing a carry bit input and replacing the zeroth bit half=adder with a full adder.
+\begin{align*}
+	c_0 = \;     & b_0                                                                   \\
+	s_0 = \;     & a_0 \oplus c_0                                                        \\
+	c_1 = \;     & a_0 \land c_0                                                         \\
+	s_1 = \;     & (a_1 \oplus b_1) \oplus c_0                                           \\
+	c_2 = \;     & ((a_1 \oplus b_1) \land c_1) \lor (a_1 \land b_1)                     \\
+	             & ...                                                                   \\
+	c_i = \;     & ((a_{i-1} \oplus b_{i-1}) \land c_{i-1}) \lor (a_{i-1} \land b_{i-1}) \\
+	s_i = \;     & (a_i \oplus b_i) \oplus c_{i-1}                                       \\
+	             & ...                                                                   \\
+	c_n = \;     & ((a_{n-1} \oplus b_{n-1}) \land c_{n-1}) \lor (a_{n-1} \land b_{n-1}) \\
+	s_n  = \;    & (a_n \oplus b_n) \oplus c_{n-1}                                       \\
+	c_{n+1} = \; & ((a_n \oplus b_n) \land c_n) \lor (a_n \land b_n)                     \\
+	c = \;       & c_{n+1}
+\end{align*}
+I.e. $s_0 = a_0 \oplus c_0$, $s_i = (a_i \oplus b_i) \oplus c_{i-1}$ for $1 \leq i \leq n$, $c_0 = b_0$, $c_1 = a_0 \land c_0$, $c_i = ((a_{i-1} \oplus b_{i-1}) \land c_{i-1}) \lor (a_{i-1} \land b_{i-1})$ for $2 \leq i \leq n+1$.
+
+\subsection{(c)}
+\begin{align*}
+	\text{total } \land = \;  & 2n + 1 \\
+	\text{total } \lor = \;   & n      \\
+	\text{total } \oplus = \; & 3n + 1
+\end{align*}
+
+\pagebreak
+
+\section{Problem 4}
+It is reasonable to translate these two IF-THEN statements in different ways into propositional formulas because the mother is invoking a conventional implication whereas the mathematician is invoking a mathematical implication.
+
+In a conventional implication, there is a causal connection between hypothesis and conclusion. Either the hypothesis and conclusion are both true or they are both false. This corresponds to IFF.
+
+A mathematical implication, however, lacks a casual connection between hypothesis and conclusion. If the hypothesis is true, the conclusion must be true as well.  On the other hand, if the hypothesis is false, the conclusion can be either true or false. This corresponds to IMPLIES.
+
+\end{document}

@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{In-Class Problem Solutions for Session 2}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+Prove that if $a \cdot b = n$, then either $a$ or $b$ must be $\leq \sqrt{n}$ where $a$, $b$, and $c$ are nonnegative real numbers.
+\begin{proof}
+	We use proof by contradiction. Suppose $a \cdot b = n$ but $a > \sqrt{n}$ and $b > \sqrt{n}$. Then
+	\[
+		a \cdot b > \sqrt{n}\sqrt{n} = n
+	\]
+	This is a contradiction. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 2}
+We can generalize Theorem 1.8.1 to any prime number $p$. However, we should first prove a more general version of Problem 14 from Chapter 1.
+
+Given a prime number $p$, prove that if $n^2$ is a multiple of $p$, then $n$ must be a multiple of $p$.
+\begin{proof}
+	We use proof by contradiction. Suppose $n^2$ is a multiple of $p$ but $n$ is not a multiple of $p$. Therefore, $p$ is not a factor of $n$. Since $p$ is prime, we can deduce by the \textit{Fundamental Theorem of Arithmetic} that $p$ is not a factor of $n^2$. This leads us to the contradiction that $n^2$ is not a multiple of $p$. Hence, the claim must be true.
+\end{proof}
+
+With that proof out of the way, we are now ready to generalize Theorem 1.8.1.
+
+Given a prime number $p$, prove that $\sqrt{p}$ is irrational.
+\begin{proof}
+	We use proof by contradiction. Suppose that $\sqrt{p}$ is ration. Then $\sqrt{p} = \frac{n}{d}$ where $n$ and $d$ are integers such that $d > 0$ and $n$ and $d$ have no common factors. Consider the following:
+	\[
+		p = \frac{n^2}{d^2}
+	\]
+	\[
+		p d^2 = n^2
+	\]
+	So $p$ is a factor of $n^2$. From our previous proof, we know that this is only possible if $p$ is also a factor of $n$. Therefore, $n = p k$ for some nonzero integer $k$ and:
+	\[
+		n^2 = (p k)^2 = p^2 k^2
+	\]
+	\[
+		p d^2 = p^2 k^2
+	\]
+	\[
+		d^2 = p k^2
+	\]
+	I.e. $p$ is a factor of $d^2$. From our previous proof, we know that this is only possible if $p$ is also a factor of $d$. We have reached a contradiction since $n$ and $d$ share a common factor of $p$. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 3}
+Prove that raising an irrational number to an irrational power can result in a rational number.
+\begin{proof}
+	The proof is by case analysis. Let us consider two cases:
+	\begin{enumerate}
+		\item $\sqrt{2}^{\sqrt{2}}$ is rational.
+		\item $\sqrt{2}^{\sqrt{2}}$ is irrational.
+	\end{enumerate}
+	Since $\sqrt{2}^{\sqrt{2}}$ must be either rational or irrational, we can prove that the claim is true by showing that the claim holds in both cases.
+
+	\textbf{Case 1:}
+	The claim holds since $\sqrt{2}$ is irrational.
+
+	\textbf{Case 2:}
+	Consider the following:
+	\[
+		\sqrt{2}^{{\sqrt{2}}^{\sqrt{2}}} = \sqrt{2}^{\sqrt{2}\sqrt{2}} = \sqrt{2}^2 = 2
+	\]
+	The claim holds since $\sqrt{2}$ is irrational and $2$ is rational.
+
+	The claim holds in all cases. Hence, we can conclude that the claim is true.
+\end{proof}
+\pagebreak
+
+\section{Problem 4}
+Prove that $2 \log_2 3$ is irrational.
+\begin{proof}
+	We use proof by contradiction. Suppose that $\log_2 3$ is rational. Then $\log_2 3 = \frac{n}{d}$ where $n$ and $d$ are integers, $d > 0$, and $n$ and $d$ do not share any common factors. Consider the following:
+	\[
+		2^{\log_2 3} = 2^{\frac{n}{d}}
+	\]
+	\[
+		\text{Apply the definition of the log function:}
+	\]
+	\[
+		3 = 2^{\frac{n}{d}}
+	\]
+	\[
+		3^d = 2^n
+	\]
+	Since both $3$ and $2$ are prime numbers, we conclude from the \textit{Fundamental Theorem of Arithmetic} that the above equation can only satisfied if both sides equal 1. I.e. $d = n = 0$. This is a contradiction since $d > 0$. Hence, the claim must be true.
+\end{proof}
+
+\end{document}

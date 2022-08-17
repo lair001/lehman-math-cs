@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{Problem Set 1 Solutions}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+Prove that $\log_4 6$ is irrational.
+\begin{proof}
+	We use proof by contradiction. Suppose that $\log_4 6$ is rational. Then $\log_4 6 = \frac{n}{d}$ where $n$ and $d$ are integers, $d > 0$, and $n$ and $d$ do not share any common factors. Consider the following:
+	\[
+		4^{\log_4 6} = 4^{\frac{n}{d}}
+	\]
+	\[
+		\text{Apply the definition of the log function:}
+	\]
+	\[
+		6 = 4^{\frac{n}{d}}
+	\]
+	\[
+		6^d = 4^n
+	\]
+	\[
+		2^d 3^d = 2^{2n}
+	\]
+	\[
+		3^d = 2^{2n - d}
+	\]
+	Since both $3$ and $2$ are prime numbers, we conclude from the \textit{Fundamental Theorem of Arithmetic} that the above equation can only satisfied if both sides equal 1. I.e $d = 0$ and $2n - d = 0$, which implies that $d = n = 0$.  This is a contradiction since $d > 0$. Hence, the claim must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 2}
+Prove that
+\begin{equation}\label{p10claim}
+	n \leq 3^{\frac{n}{3}} \; \forall \; n \in \mathbb{N}
+\end{equation}
+\begin{proof}
+	The proof is by case analysis. Consider the following cases:
+	\begin{enumerate}
+		\item $n = 0$
+		\item $n = 1$
+		\item $n = 2$
+		\item $n = 3$
+		\item $n = 4$
+		\item $n \geq 5$
+	\end{enumerate}
+
+	\textbf{Case 1:}
+	\[
+		3^{\frac{0}{3}} = 3^0 = 1 > 0
+	\]
+	\eqref{p10claim} holds for Case 1.
+
+	\textbf{Case 2:}
+	\[
+		3^{\frac{1}{3}} = 3^{\frac{1}{3}} > 1.4422 > 1
+	\]
+	\eqref{p10claim} holds for Case 2.
+
+	\textbf{Case 3:}
+	\[
+		3^{\frac{2}{3}} = 3^{\frac{2}{3}} > 2.0800 > 2
+	\]
+	\eqref{p10claim} holds for Case 3.
+
+	\textbf{Case 4:}
+	\[
+		3^{\frac{3}{3}} = 3
+	\]
+	\eqref{p10claim} holds for Case 4.
+
+	\textbf{Case 5:}
+	\[
+		3^{\frac{4}{3}} > 4.3267 > 4
+	\]
+	\eqref{p10claim} holds for Case 5
+
+	\textbf{Case 6:}
+	The proof for this case is by the WOP. Let $C$ be the set of counterexamples to \eqref{p10claim}. We will prove by contradiction that $C$ is empty. Suppose that $C$ is not empty. By the WOP, there is a least $m \in C$. Since \eqref{p10claim} holds in Cases 1-5, we know that $m \geq 5$ and $m - 4 \in \mathbb{N}$. Since $m$ is the least element in $C$, \eqref{p10claim} must hold for $m - 1$:
+	\[
+		m - 1 \leq 3^{\frac{m - 1}{3}}
+	\]
+	\[
+		(m - 1)^3 \leq 3^{m-1}
+	\]
+	\[
+		3 \cdot (m - 1)^3 \leq 3^m
+	\]
+	\[
+		\text{Since } m \in C, m > 3^{\frac{m}{3}} \implies 3^m < m^3
+	\]
+	\[
+		3 \cdot (m - 1)^3 \leq 3^m < m^3
+	\]
+	\[
+		\frac{(m - 1)^3}{m^3} < \frac{1}{3}
+	\]
+	\[
+		\frac{m - 1}{m} < \frac{1}{3^{\frac{1}{3}}}
+	\]
+	\[
+		1 - \frac{1}{m} < \left(\frac{1}{3}\right)^{\frac{1}{3}}
+	\]
+	\[
+		\frac{1}{m} > 1 - \left(\frac{1}{3}\right)^{\frac{1}{3}}
+	\]
+	\[
+		m < \frac{1}{1 - \left(\frac{1}{3}\right)^{\frac{1}{3}}} < 3.2612
+	\]
+	This is a contradiction since we established by Cases 1-5 that $m \ge 5$. Therefore, $C$ is empty and \eqref{p10claim} holds for Case 6.
+
+	\eqref{p10claim} holds for Cases 1-6. Therefore, \eqref{p10claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 3}
+\subsection{(a)}
+Prove by truth table that
+\begin{equation}\label{p16claim}
+	(P \implies Q) \lor (Q \implies P)
+\end{equation}
+is valid.
+\begin{proof}
+	\[
+		\begin{array}{|c|c|c c c|}
+			P & Q & (P \implies Q) & \lor       & (Q \implies P) \\
+			\hline
+			T & T & T              & \mathbf{T} & T              \\
+			T & F & F              & \mathbf{T} & T              \\
+			F & T & T              & \mathbf{T} & F              \\
+			F & F & T              & \mathbf{T} & T
+		\end{array}
+	\]
+
+	\eqref{p16claim} evaluates to True in all of the rows of its truth table. Hence, \eqref{p16claim} is valid.
+\end{proof}
+
+\subsection{(b)}
+\[
+	R \Coloneqq (P \land Q) \lor (\neg P \land \neg Q)
+\]
+I.e. $R \equiv P \iff Q$.
+
+\subsection{(c)}
+Explain why
+\[
+	Q \Coloneqq P { is valid} \iff \neg P
+\]
+is not satisfiable.
+
+$A \iff B$ is True only when $A$ and $B$ are both True or when $A$ and $B$ are both false. If $P$ is valid is True, then $\neg P$ is always False. Hence, $Q$ is not satisfiable.
+
+\subsection{(d)}
+Let
+\[
+	S \Coloneqq \neg P_1 \lor \neg P_2 \lor ... \neg P_k
+\]
+$S$ is True iff at least one of the $P_i$'s are False. Hence, $P_1, ..., P_k$ is not consistent iff $S$ is valid.
+
+\pagebreak
+
+\section{Problem 4}
+\subsection{(a)}
+\begin{align*}
+	p_0 & \Coloneqq \neg a_0 \\
+	c   & \Coloneqq a_0
+\end{align*}
+
+\subsection{(b)}
+If $b = 1$, we add 1 to $a$. Otherwise, $a$ is unchanged:
+\[
+	o_i = (b \land p_i) \lor (\neg b \land a_i)
+\]
+
+\subsection{(c)}
+$c = 1$ only if $a_i = 1 \; \forall i$ such that $0 \le i \le a_{2n + 1}$. However, if this is the case, then both of the single size add1-modules carry. Hence:
+\[
+	c = c_{(1)} \land c_{(2)}
+\]
+
+\subsection{(d)}
+If the lower half does not carry, the upper half should remain unchanged. I.e. output of the upper half should be equal to its input. On the other hand, if the lower half does carry, the upper half should be incremented by 1. I.e. the output of the upper half should be equal to the output of the upper single-size add1=module. Hence:
+\[
+	p_i = (\neg c_{(1)} \land a_i) \lor (c_{(1)} \land r_{i-(n+1)})
+\]
+
+\subsection{(e)}
+We found that there is 1 propositional operator for computing each output bit of a add-1 module. Furthermore, up to two more gates can be added for the upper bits when choosing between the output of the upper add-1 module and the raw input.  I.e. the number of gates on the path from the input to output of any given bit of a add1-module is bounded by a constant: $3$.
+
+One may object by pointing out that the carry of the lower add-1 module must resolve before we can choose the output of the upper module. However, the power of the parallel half-adder is that we can grow it by adding add-1 modules of a constant size such that we only ever need to wait for one level of add-1 modules to resolve. The number of operators on the output path of the ripple carry half-adder, however, continues to increase. Hence, for each subsequent doubling of $n$, the latency of the parallel half adder remains nearly constant (but not quite; part (b) shows us that two gates are added to the maximum output path for each add-1 module added; the rate of growth is actually proportional to $\log_2 n$) for each doubling of $n$ while latency of the ripple carry half-adder continues to double.
+
+\pagebreak
+
+\end{document}

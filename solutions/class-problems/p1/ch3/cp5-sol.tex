@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\title{In-Class Problem Solutions for Session 5}
+\author{Samuel Lair}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+
+\subsection{(a)}
+\[
+	\exists x.x^2 = 2
+\]
+
+$\sqrt{2}$ is irrational.
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+False when the domain of discourse is $\mathbb{Q}$.
+
+True when the domain of discourse is $\mathbb{R}$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(b)}
+\[
+	\forall x. \exists y. x^2 = y
+\]
+
+True when the domain of discourse is $\mathbb{N}$.
+
+True when the domain of discourse is $\mathbb{Z}$.
+
+True when the domain of discourse is $\mathbb{Q}$.
+
+True when the domain of discourse is $\mathbb{R}$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(c)}
+\[
+	\forall y. \exists x.x^2 = y
+\]
+
+This is a generalization of part(a).
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+False when the domain of discourse is $\mathbb{Q}$.
+
+False when the domain of discourse is $\mathbb{R}$. We need to consider the case when $y < 0$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(d)}
+\[
+	\forall x \ne 0. \exists y.xy = 1
+\]
+
+For each $x \ne 0$ in a domain of discourse, determine whether $\frac{1}{x}$ is also in said domain of discourse.
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+True when the domain of discourse is $\mathbb{Q}$.
+
+True when the domain of discourse is $\mathbb{R}$.
+
+True when the domain of discourse is $\mathbb{C}$.
+
+\subsection{(e)}
+\[
+	\exists x. \exists y.x + 2y = 2 \land 2x + 4y = 5
+\]
+
+If you multiply the left-hand equation by 2 and subtract from the right-hand equation, you get $0 = 1$ which is clearly not True. Therefore, this system of equations doesn't have a solution. Otherwise, one would solve the system of equations and determine which domains of discourse contain the solution.
+
+False when the domain of discourse is $\mathbb{N}$.
+
+False when the domain of discourse is $\mathbb{Z}$.
+
+False when the domain of discourse is $\mathbb{Q}$.
+
+False when the domain of discourse is $\mathbb{R}$.
+
+False when the domain of discourse is $\mathbb{C}$.
+
+\pagebreak
+
+\section{Problem 2}
+
+\subsection{(a)}
+\[
+	\exists y.(x = yyy)
+\]
+
+\subsection{(b)}
+\[
+	\text{NO-1S}(x) \land  \exists y.(x = yy)
+\]
+
+\subsection{(c)}
+\[
+	\text{NO-1S}(x) \lor \neg \text{SUBSTRING}(0, x)
+\]
+
+\subsection{(d)}
+\[
+	x = 1 \lor \exists y.(x = 1y1 \land \text{NO-1S}(y))
+\]
+
+\subsection{(e)}
+Prepending a $0$ to $x$ shifts all of the digits of $x$ one place to the right. If $x$ is empty or a string of $0$'s, then x will obviously be a prefix of $0x$. However, if $x$ contains any $1$'s, the first $1$ will be shifted space to the right in $0x$ such that $x$ will not be a prefix of $0x$. Hence, (*) is true only when x is a string of $0$'s.
+
+\pagebreak
+
+\section{Problem 3}
+\[
+	(\exists a \exists b \exists c \forall d .(d \ne a \land d \ne b \land d \ne c)) \implies \neg E(a, d)
+\]
+
+\pagebreak
+
+\section{Problem 4}
+
+\subsection{(1)}
+\begin{equation}\label{p4-1eq1}
+	\forall x. \exists y.P(x, y) \implies \exists y. \forall x.P(x, y)
+\end{equation}
+
+\eqref{p4-1eq1} is invalid.
+
+Let $\mathbb{Z}$ be the domain of discourse and $P(x, y) \Coloneqq x + y = 0$. The left-hand operand is True since $\forall x$, $y = -x \in \mathbb{Z}$ and $x + y = x - x = 0$. However, the value of $y$ that satisfies $P(x, y)$ depends on the value of $x$. I.e. there is no single value of y that satisfies $P(x, y)$ for all values of x. Hence, the right-hand operand is False and \eqref{p4-1eq1} evaluates to False.
+
+\subsection{(2)}
+\begin{equation}\label{p4-2eq1}
+	\exists y. \forall x.P(x, y) \implies \forall x. \exists y.P(x, y)
+\end{equation}
+
+\eqref{p4-2eq1} is valid.
+
+The $\implies$ operator, and by extension \eqref{p4-2eq1}, always evaluates to True when its left-hand operand is False.
+
+If the left-hand operator is True, then there is one single value of $y$ where $P(x, y)$ always evaluates to True regardless of the value of $x$. Let's denote this value of $y$ as $z$. But then it follows that the right-hand operator is also True. For any value of $x$, simply take $y = z$. Then $P(x, y) = P(x, z) = True$. Since both operands are True, then \eqref{p4-2eq1} evaluates to True in this case as well.
+
+\eqref{p4-2eq1} evaluates to True regardless of whether the left-hand operator is True or False. Hence, \eqref{p4-2eq1} is valid.
+
+\pagebreak
+
+\section{Problem 5}
+\subsection{(a)}
+The cabal has at least 3 members.
+\subsection{(b)}
+Siggi and Annie are not both members of the cabal.
+\subsection{(c)}
+If Elizabeth is in the cabal, then all of course staff are members of the cabal.
+\subsection{(d)}
+If Annie is in the cabal, Siggi is in the cabal as well.
+\subsection{(e)}
+If either Ben or Albert is in the cabal, then Tom is not in the cabal
+\subsection{(f)}
+If either Ben or Siggi is in the cabal, then Adam is not in the cabal.
+\subsection{(g)}
+Since (b) and (d) are True, Annie is not in the cabal. Since Annie is not in the cabal and (c) is True, Elizabeth is not in the cabal.
+
+Finally, we must conclude that the cabal consists solely of Ben, Albert, and Siggi since (a), (f), and (g) are all True.
+
+If we eliminate Ben, we are left with either Albert and Siggi, Albert and Adam, Tom and Siggi, or Tom and Adam. None of these have the three members required by (a). If we include Ben, we must eliminate Tom and Adam. Hence, we must also include Albert and Siggi to satisfy (a).
+
+\end{document}

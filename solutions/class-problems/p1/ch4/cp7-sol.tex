@@ -1,0 +1,214 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst, hyperref, gensymb, amsmath, amsthm, wasysym, amsfonts, mathtools, braket, amssymb}
+\hypersetup{colorlinks,allcolors=blue,linktoc=all}
+
+\newcommand{\surj}{\text{ surj }}
+\newcommand{\inj}{\text{ inj }}
+\newcommand{\bij}{\text{ bij }}
+
+\newenvironment{subproof}[1][\proofname]{%
+	\renewcommand{\qedsymbol}{$\blacksquare$}%
+	\begin{proof}[#1]%
+	}{%
+	\end{proof}%
+}
+
+\title{In-Class Problem Solutions for Session 7}
+\author{Samuel Lair}
+\date{September 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\pagebreak
+
+\section{Problem 1}
+\[
+	\begin{array}{l|l l}
+		R \text{ is}        & \text{iff } & R^{-1} \text{ is}   \\
+		\hline
+		\text{total}        &             & \text{a surjection} \\
+		\text{a function}   &             & \text{an injection} \\
+		\text{a surjection} &             & \text{total}        \\
+		\text{an injection} &             & \text{a function}   \\
+		\text{a bijection}  &             & \text{a bijection}
+	\end{array}
+\]
+
+\pagebreak
+
+\section{Problem 2}
+Let $A = \{a_0, a_1, ..., a_{n-1}\}$ be a set of size $n$, and and $B = \{b_0,b_1,...,b_{m-1}\}$ be a set of size $m$. Prove that
+\begin{equation}\label{p39claim}
+	|A \times B| = mn
+\end{equation}
+\begin{proof}
+	Let
+	\begin{align*}
+		 & f((a_i, b_j)) \Coloneqq mi + j                            \\
+		 & C \Coloneqq \Set{z \in \mathbb{N} | 0 \le z \le (mn - 1)}
+	\end{align*}
+
+	For every $c \in C$, there is exactly 1 $s \in A \times B$ such that $f(s) = c$. Therefore, $f$ is a bijection from $A \times B$ to $C$. From part 3 of Lemma 4.5.3 on page 116 of the book, it follows that
+	\[
+		|A \times B| = |C| = mn
+	\]
+
+	Hence, \eqref{p39claim} must be true.
+\end{proof}
+
+\pagebreak
+
+\section{Problem 3}
+\subsection{(a)}
+\[
+	|f(A)| \le |B|
+\]
+
+\subsection{(b)}
+\[
+	|A| \ge |B|
+\]
+
+\subsection{(c)}
+\[
+	|f(A)| = |B|
+\]
+
+\subsection{(d)}
+\[
+	|f(A)| = |A|
+\]
+
+\subsection{(e)}
+\[
+	|A| = |B|
+\]
+
+\pagebreak
+
+\section{Problem 4}
+Prove that
+\begin{equation}\label{p40claim}
+	|X| \ge |R(X)|
+\end{equation}
+\begin{proof}
+	Let $n$ be the number of arrows that originate from an element of $X$.  Since $R$ is a function, at most 1 arrow originates from each member of $X$. Therefore,
+	\begin{equation}\label{p40eq1}
+		|X| \ge n
+	\end{equation}
+
+	From the definition of image, we know that $\forall r \in R(x)$ there exists an arrow originating from a member of $X$ that terminates at $r$. Therefore,
+	\begin{equation}\label{p40eq2}
+		|R(X)| \le n
+	\end{equation}
+
+	From \eqref{p40eq1} and \eqref{p40eq2}, it follows that
+	\[
+		|X| \ge n \ge |R(X)|
+	\]
+
+	Hence, \eqref{p40claim} must be true.
+
+\end{proof}
+
+\pagebreak
+
+\section{Problem 5}
+\subsection{(a)}
+Prove that
+\begin{equation}\label{p22aclaim}
+	A \surj B \land B \surj C \implies A \surj C
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		A \surj B \implies \exists \text{ a surjective function } f : A \rightarrow B \\
+		B \surj C \implies \exists \text{ a surjective function } g : B \rightarrow C
+	\end{align*}
+	Since g is a surjective function, $\forall c \in C \; \exists b \in B.g(b) = c$. Since f is a surjective function, $\forall b \in B \; \exists a \in A.f(a) = b$. Therefore, $\forall c \in C \; \exists a \in A.g(f(a)) = c$. In other words, $g \circ f : A \rightarrow C$ is a surjective function. Hence, \eqref{p22aclaim} must be true.
+\end{proof}
+
+\subsection{(b)}
+Prove that
+\begin{equation}\label{p22bclaim}
+	A \surj B \iff B \inj A
+\end{equation}
+\begin{proof}
+	We will proceed by proving the following lemmas:
+	\begin{align}
+		\label{p22blemma1} A \surj B \implies B \inj A \\
+		\label{p22blemma2} B \inj A \implies A \surj B
+	\end{align}
+	\begin{subproof}[Proof of \eqref{p22blemma1}]
+		The proof is by contradiction. Suppose $A \surj B$ is true but $B \inj A$ is false.
+		Then $\exists \text{ a surjective function } f : A \rightarrow B$.
+
+		Suppose that $f^{-1} B \rightarrow A$ isn't total. Then $\exists b \in B$ such that no arrows of $f^{-1}$ originate from $b$. However, this would imply that no arrows of $f$ terminate at $b$.  Therefore, we've reached a contradiction where $f$ isn't surjective. Hence, $f^{-1}$ must be total.
+
+		Suppose that $f^{-1} B \rightarrow A$ isn't injective. Then $\exists a \in A$ such that more than 1 arrow of $f^{-1}$ terminate at $a$. However, this would imply that more than 1 arrow of $f$ originates at $a$. Therefore, we've reached a contradiction where $f$ isn't a function. Hence, $f^{-1}$ must be injective.
+
+		Since $f^{-1}$ is both total and injective, $f^{-1}$ is an injective total relation. Therefore, we've reached a contradiction where $B \inj A$ is true. Hence, \eqref{p22blemma1} must be true.
+	\end{subproof}
+
+	\begin{subproof}[Proof of \eqref{p22blemma2}]
+		The proof is by contradiction. Suppose that $B \inj A$ is true but $A \surj B$ is false. Then $\exists \text{ an injective total relation } g : B \rightarrow A$.
+
+		Suppose that $g^{-1} : A \rightarrow B$ isn't surjective. Then $\exists b \in B$ such that no arrows of $g^{-1}$ terminate at B. However, this would imply that no arrows of $g$ originate at $b$. Therefore, we've reached a contradiction where $g$ isn't total. Hence, $g^{-1}$ must be surjective.
+
+		Suppose that $g^{-1}$ isn't a function. Then $\exists a \in A$ such that more than 1 arrow of $g^{-1}$ originates at $a$. However, this would imply that more than 1 arrow of $g$ terminates at $a$. Therefore, we've reached a contradiction where $g$ isn't injective. Hence, $g^{-1}$ must be a function.
+
+		Since $g^{-1}$ is both surjective and a function, $g^{-1}$ is a surjective function. Therefore, we've reached a contradiction where $A \surj B$ is true. Hence, \eqref{p22blemma2} must be true.
+	\end{subproof}
+
+	We've proved that both \eqref{p22blemma1} and \eqref{p22blemma2} are true. Hence, \eqref{p22bclaim} must be true.
+\end{proof}
+
+\subsection{(c)}
+Prove that
+\begin{equation}\label{p22cclaim}
+	A \inj B \land B \inj C \implies A \inj C
+\end{equation}
+\begin{proof}
+	\begin{align*}
+		 & A \inj B \land B \inj C   &                                  & \iff     \\
+		 & B \surj A \land C \surj B & (\text{apply \eqref{p22bclaim}}) & \implies \\
+		 & C \surj A                 & (\text{apply \eqref{p22aclaim}}) & \iff     \\
+		 & A \inj C                  & (\text{apply \eqref{p22bclaim}})
+	\end{align*}
+	Hence, \eqref{p22cclaim} must be true.
+\end{proof}
+
+\subsection{(d)}
+Prove that
+\begin{equation}\label{p22dclaim1}
+	A \inj B \iff \exists \text{ a total injective function f} : A \rightarrow B
+\end{equation}
+\begin{proof}
+	From part 2 of Definition 4.5.2, we can rewrite \eqref{p22dclaim1} as
+	\begin{align}
+		 & \exists \text{ a total injective relation g} : A \rightarrow B & \iff \notag \\ &\exists \text{ a total injective function f} : A \rightarrow B& \label{p22dclaim2}
+	\end{align}
+
+	We will proceed by proving the following lemmas:
+	\begin{align}
+		 & \exists \text{ a total injective function f} : A \rightarrow B & \implies \notag \\ &\exists \text{ a total injective relation g} : A \rightarrow B& \label{p22dlemma1} \\
+		 & \exists \text{ a total injective relation g} : A \rightarrow B & \implies \notag \\ &\exists \text{ a total injective function f} : A \rightarrow B& \label{p22dlemma2}
+	\end{align}
+
+	\begin{subproof}[Proof of Lemma \eqref{p22dlemma1}]
+		\eqref{p22dlemma1} is trivially true since a function is a type of relation.  In other words, $f$ is also a relation.
+	\end{subproof}
+
+	\begin{subproof}[Proof of Lemma \eqref{p22dlemma2}]
+		$f$ can be constructed from $g$ by eliminating arrows of $g$ until there is exactly one arrow originating from every $a \in A$.  Hence, \eqref{p22dlemma2} must be true.
+	\end{subproof}
+
+	We've proved that \eqref{p22dlemma1} and \eqref{p22dlemma2} are true. Hence, \eqref{p22dclaim2} must be true and \eqref{p22dclaim1} must be true.
+
+\end{proof}
+
+\end{document}
